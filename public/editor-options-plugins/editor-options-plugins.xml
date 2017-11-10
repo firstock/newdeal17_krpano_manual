@@ -1,0 +1,21 @@
+<!--
+	krpano - editor and options-plugins example
+	tour.html_ html5:"never"
+-->
+
+<krpano bgcolor="0x000077">
+
+	<!-- include the both plugins -->
+	<plugin name="editor"  url="plugins/editor.swf" keep="true"  />
+	<plugin name="options" url="plugins/options.swf" keep="true" view="true" display="false" control="false" image="false" onloaded="open();" />
+	<!-- keep true !! -->
+	
+	<!-- set the path to the default lensflare image -->
+	<lensflareset name="DEFAULT" url="krpano_default_flares.jpg" />
+	
+	<!-- use a partial pano -->
+	<view hlookat="0" vlookat="0" fov="100" />
+
+	<preview type="grid(cube,64,64,512,0x666666,0x000000,0x666666;" details="24" />
+
+</krpano>
