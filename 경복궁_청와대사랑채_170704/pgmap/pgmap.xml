@@ -1,0 +1,308 @@
+<krpano>
+
+	<pgmap_settings
+		editmode="true"
+	/>
+
+	<include url="plugins/pgmap_showtext.xml" />
+
+	<style name="map_spot" url="icons/mappoint.png" align="lefttop" edge="center" zorder="2" onclick="if(linkedscene, loadscene(get(linkedscene),null,MERGE,BLEND(1)); skin_updatescroll(););"
+	/>
+
+	<textstyle name="spotstyle2" font="Arial" fontsize="12" bold="true" italic="false" textcolor="0x000000" background="false" border="false" blendmode="layer" effect="glow(0xFFFFFF,0.85,4,4);dropshadow(2,45,0x000000,4,1);" origin="cursor" edge="bottom" xoffset="0" yoffset="-5" showtime="0.1" fadeintime="0.1" fadetime="0.1" />
+
+	
+	<layer name="B2_map" url="B2.png" keep="true" align="righttop"  width="600" height="prop" x="0" y="0"  scale="0.5" alpha="0.8" enabled="true" handcursor="false" scalechildren="true" maskchildren="true" visible="false" onclick="openmap_2();" status="small" >
+
+
+			<!-- 이곳에 제공된 pgmap_spot_gen_png(또는 jpg).exe 파일로 생성한 맵용 핫스팟 레이어를 붙여 넣으세요  -->
+			<layer name="B2_spot1" style="map_spot" x="825" y="335" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_009" />
+			<layer name="B2_spot2" style="map_spot" x="825" y="362" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_008" />
+			<layer name="B2_spot3" style="map_spot" x="822" y="453" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_007" />
+			<layer name="B2_spot4" style="map_spot" x="711" y="452" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_006" />
+		<layer name="B2_spot5" style="map_spot" x="640" y="453" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_005" />
+		<layer name="B2_spot7" style="map_spot" x="614" y="409" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_004" />
+		<layer name="B2_spot6" style="map_spot" x="594" y="453" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_003" />
+		<layer name="B2_spot8" style="map_spot" x="551" y="453" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_002" />
+		<layer name="B2_spot9" style="map_spot" x="424" y="451" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_001" />
+		<layer name="B2_spot10" style="map_spot" x="426" y="408" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_031" />
+		<layer name="B2_spot11" style="map_spot" x="420" y="375" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_032" />
+		<layer name="B2_spot12" style="map_spot" x="324" y="452" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_030" />
+		<layer name="B2_spot13" style="map_spot" x="257" y="451" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_029" />
+		<layer name="B2_spot14" style="map_spot" x="173" y="453" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_028" />
+		<layer name="B2_spot15" style="map_spot" x="108" y="455" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_027" />
+		<layer name="B2_spot16" style="map_spot" x="115" y="407" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_026" />
+		<layer name="B2_spot17" style="map_spot" x="115" y="376" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_023" />
+		<layer name="B2_spot18" style="map_spot" x="116" y="333" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_022" />
+		<layer name="B2_spot19" style="map_spot" x="97" y="322" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_025" />
+		<layer name="B2_spot20" style="map_spot" x="127" y="317" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_021" />
+		<layer name="B2_spot21" style="map_spot" x="115" y="295" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_020" />
+		<layer name="B2_spot22" style="map_spot" x="114" y="392" onhover="showtext(, spotstyle2);" linkedscene="scene_B2_018" />
+
+
+			<layer name="B2_radar" keep="true" visible="true"
+			       url="plugins/radar.swf"
+			       alturl="plugins/radar.js"
+			       align="lefttop" edge="center"
+			       fillcolor="0xFFFFFF" fillalpha="0.5" scale="0.5"
+				linecolor="0xf26c4f" linewidth="0.5" linealpha="0.5"
+	  			headingoffset="0"
+				zorder="1" editmode="get:pgmap_settings.editmode"
+			/>
+
+			<layer name="activespot_2" url="icons/mappointactive.png" keep="true" align="lefttop" edge="center" zorder="3" />
+
+			<layer name="mapinfo_2" url="icons/map_info.png" align="leftbottom" enabled="false" alpha="0" />
+
+		</layer>
+
+		<layer name="B3_map" url="B3.png" keep="true" align="righttop"  width="900" height="prop" x="0" y="0"  scale="0.5" alpha="0.8" enabled="true" handcursor="false" scalechildren="true" maskchildren="true" visible="false" onclick="openmap_3();" status="small" >
+
+
+			<!-- 이곳에 제공된 pgmap_spot_gen_png(또는 jpg).exe 파일로 생성한 맵용 핫스팟 레이어를 붙여 넣으세요  -->
+			<layer name="B3_spot1" style="map_spot" x="651" y="209" onhover="showtext(, spotstyle2);" linkedscene="scene_B3_1" />
+			<layer name="B3_spot2" style="map_spot" x="677" y="276" onhover="showtext(, spotstyle2);" linkedscene="scene_B3_2" />
+			<layer name="B3_spot3" style="map_spot" x="680" y="142" onhover="showtext(, spotstyle2);" linkedscene="scene_B3_3" />
+			<!-- 
+			<layer name="B3_spot1" style="map_spot" x="691" y="210" onhover="showtext(, spotstyle2);" linkedscene="scene_B3_1" />
+			<layer name="B3_spot2" style="map_spot" x="674" y="368" onhover="showtext(, spotstyle2);" linkedscene="scene_B3_3" />
+			<layer name="B3_spot3" style="map_spot" x="676" y="502" onhover="showtext(, spotstyle2);" linkedscene="scene_B3_2" /> 
+		 -->
+			<layer name="B3_radar" keep="false" visible="false"
+		       url="plugins/radar.swf"
+		       alturl="plugins/radar.js"
+		       align="lefttop" edge="center"
+		       fillcolor="0xFFFFFF" fillalpha="0.5" scale="0.5"
+			linecolor="0xf26c4f" linewidth="0.5" linealpha="0.5"
+  			headingoffset="0"
+			zorder="1" editmode="get:pgmap_settings.editmode"
+		/>
+
+		<layer name="activespot_3" url="icons/mappointactive.png" keep="true" align="lefttop" edge="center" zorder="3" />
+
+		<layer name="mapinfo_3" url="icons/map_info.png" align="leftbottom" enabled="false" alpha="0" />
+
+		</layer>
+
+
+
+<action name="openmap">
+		if(layer[map_box].status==small, 
+			tween(layer[map_box].scale, 1);
+			tween(layer[map_box].alpha,1);
+			tween(layer[mapinfo].alpha, 1); , 
+			tween(layer[map_box].scale, 0.4);
+			tween(layer[map_box].alpha,0.8);
+			tween(layer[mapinfo].alpha, 0)
+		); 
+		switch(layer[map_box].status, small, large);
+</action>
+
+
+	<action name="pgmapspot">
+			<!-- copy the spot position to the radar and activespot position -->
+
+			if(layer[B1_map].visible,
+
+				set(layer[B2_radar].visible, false);
+				set(layer[activespot_2].visible, false);
+				set(layer[B3_radar].visible, false);
+				set(layer[activespot_3].visible, false);
+				set(layer[B4_radar].visible, false);
+				set(layer[activespot_4].visible, false);
+
+				copy(layer[B1_radar].x, layer[%1].x);
+				copy(layer[B1_radar].y, layer[%1].y);
+				copy(layer[activespot_1].x, layer[%1].x);
+				copy(layer[activespot_1].y, layer[%1].y);
+
+				set(layer[B1_radar].heading, %2);
+
+
+				set(layer[B1_radar].visible, true);
+				set(layer[activespot_1].visible, true);
+			,;);
+
+			if(layer[B2_map].visible,
+
+				set(layer[B1_radar].visible, false);
+				set(layer[activespot_1].visible, false);
+				set(layer[B3_radar].visible, false);
+				set(layer[activespot_3].visible, false);
+				set(layer[B4_radar].visible, false);
+				set(layer[activespot_4].visible, false);
+
+				copy(layer[B2_radar].x, layer[%1].x);
+				copy(layer[B2_radar].y, layer[%1].y);
+				copy(layer[activespot_2].x, layer[%1].x);
+				copy(layer[activespot_2].y, layer[%1].y);
+
+				set(layer[B2_radar].heading, %2);
+
+				set(layer[B2_radar].visible, true);
+				set(layer[activespot_2].visible, true);
+
+			,;);
+
+			if(layer[B3_map].visible,
+
+				set(layer[B1_radar].visible, false);
+				set(layer[activespot_1].visible, false);
+				set(layer[B2_radar].visible, false);
+				set(layer[activespot_2].visible, false);
+				set(layer[B4_radar].visible, false);
+				set(layer[activespot_4].visible, false);
+
+				copy(layer[B3_radar].x, layer[%1].x);
+				copy(layer[B3_radar].y, layer[%1].y);
+				copy(layer[activespot_3].x, layer[%1].x);
+				copy(layer[activespot_3].y, layer[%1].y);
+
+				set(layer[B3_radar].heading, %2);
+
+				set(layer[B3_radar].visible, true);
+				set(layer[activespot_3].visible, true);
+
+			,;);
+
+			if(layer[B4_map].visible,
+
+				set(layer[B1_radar].visible, false);
+				set(layer[activespot_1].visible, false);
+				set(layer[B2_radar].visible, false);
+				set(layer[activespot_2].visible, false);
+				set(layer[B3_radar].visible, false);
+				set(layer[activespot_3].visible, false);
+
+				copy(layer[B4_radar].x, layer[%1].x);
+				copy(layer[B4_radar].y, layer[%1].y);
+				copy(layer[activespot_4].x, layer[%1].x);
+				copy(layer[activespot_4].y, layer[%1].y);
+
+				set(layer[B4_radar].heading, %2);
+
+				set(layer[B4_radar].visible, true);
+				set(layer[activespot_4].visible, true);
+
+			,;);
+
+	</action>
+
+
+
+	<action name="map_1_on">
+		if(layer[B1_map].visible == false,
+                  set(layer[B1_map].status,small);
+                  set(layer[B1_map].scale,0.5);
+                  set(layer[B1_map].alpha,0.8);
+
+                  set(layer[B1_map].visible,true);
+                  set(layer[B2_map].visible,false);
+                  set(layer[B3_map].visible,false);
+                  set(layer[B4_map].visible,false);
+                  ,;
+		);
+                <!-- 
+                  set(plugin[radar].visible,true);set(plugin[radar].parent,map_1f);
+              	-->
+    </action>
+
+    <action name="map_2_on">
+		if(layer[B2_map].visible == false,
+                  set(layer[B2_map].status,small);
+                  set(layer[B2_map].scale,0.5);
+                  set(layer[B2_map].alpha,0.8);
+
+                  set(layer[B2_map].visible,true);
+                  set(layer[B1_map].visible,false);
+                  set(layer[B3_map].visible,false);
+                  set(layer[B4_map].visible,false);
+                  ,;
+		);
+    </action>
+
+    <action name="map_3_on">
+		if(layer[B3_map].visible == false,
+                  set(layer[B3_map].status,small);
+                  set(layer[B3_map].scale,0.5);
+                  set(layer[B3_map].alpha,0.8);
+
+                  set(layer[B3_map].visible,true);
+                  set(layer[B1_map].visible,false);
+                  set(layer[B2_map].visible,false);
+                  set(layer[B4_map].visible,false);
+                  ,;
+		);
+    </action>
+
+    <action name="map_4_on">
+		if(layer[B4_map].visible == false,
+                  set(layer[B4_map].status,small);
+                  set(layer[B4_map].scale,0.5);
+                  set(layer[B4_map].alpha,0.8);
+
+                  set(layer[B4_map].visible,true);
+                  set(layer[B1_map].visible,false);
+                  set(layer[B2_map].visible,false);
+                  set(layer[B3_map].visible,false);
+                  ,;
+		);
+    </action>
+
+	<action name="openmap_1">
+			if(layer[B1_map].status==small, 
+				tween(layer[B1_map].scale, 1);
+				tween(layer[B1_map].alpha,1);
+				tween(layer[mapinfo_1].alpha, 1); , 
+
+				tween(layer[B1_map].scale, 0.5);
+				tween(layer[B1_map].alpha,0.8);
+				tween(layer[mapinfo_1].alpha, 0)
+			); 
+			switch(layer[B1_map].status, small, large);
+	</action>
+
+	<action name="openmap_2">
+			if(layer[B2_map].status==small, 
+				tween(layer[B2_map].scale, 1);
+				tween(layer[B2_map].alpha,1);
+				tween(layer[mapinfo_2].alpha, 1); , 
+
+				tween(layer[B2_map].scale, 0.5);
+				tween(layer[B2_map].alpha,0.8);
+				tween(layer[mapinfo_2].alpha, 0)
+			); 
+			switch(layer[B2_map].status, small, large);
+	</action>
+
+	<action name="openmap_3">
+			if(layer[B3_map].status==small, 
+				tween(layer[B3_map].scale, 1);
+				tween(layer[B3_map].alpha,1);
+				tween(layer[mapinfo_3].alpha, 1); , 
+
+				tween(layer[B3_map].scale, 0.5);
+				tween(layer[B3_map].alpha,0.8);
+				tween(layer[mapinfo_3].alpha, 0)
+			); 
+			switch(layer[B3_map].status, small, large);
+	</action>
+
+	<action name="openmap_4">
+			if(layer[B4_map].status==small, 
+				tween(layer[B4_map].scale, 1);
+				tween(layer[B4_map].alpha,1);
+				tween(layer[mapinfo_4].alpha, 1); , 
+
+				tween(layer[B4_map].scale, 0.5);
+				tween(layer[B4_map].alpha,0.8);
+				tween(layer[mapinfo_4].alpha, 0)
+			); 
+			switch(layer[B4_map].status, small, large);
+	</action>
+
+
+
+
+</krpano>
+
