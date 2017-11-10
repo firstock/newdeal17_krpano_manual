@@ -1,0 +1,475 @@
+<krpano>
+
+	<pgmap_settings
+		editmode="true"
+	/>
+
+	<include url="plugins/pgmap_showtext.xml" />
+
+	<style name="map_spot" url="icons/mappoint.png" align="lefttop" edge="center" zorder="2" onclick="if(linkedscene, loadscene(get(linkedscene),null,MERGE,BLEND(1)); skin_updatescroll(););"
+	/>
+
+	<textstyle name="spotstyle2" font="Arial" fontsize="12" bold="true" italic="false" textcolor="0x000000" background="false" border="false" blendmode="layer" effect="glow(0xFFFFFF,0.85,4,4);dropshadow(2,45,0x000000,4,1);" origin="cursor" edge="bottom" xoffset="0" yoffset="-5" showtime="0.1" fadeintime="0.1" fadetime="0.1" />
+
+	<plugin name="googlemap" devices="html5"
+		url="plugins/googlemaps.js"
+		align="righttop" width="300" height="200" x="5" y="5"
+		keep="true"
+		maptype="normal"
+		language="ko"
+		lat="37.5567536"
+		lng="126.923933"
+		zoom="18"
+		tilt=""
+		heading="0"
+		controls="zoom|maptype|scale"
+		poi="false"
+		activespotenabled="false"
+		bgcolor="0x000000" bgalpha="0.0"
+		onmapready=""
+		onmaptypechanged=""
+		onmapmoved=""
+		onmapzoomed=""
+		onloaded=""
+		>
+		<!-- onmapready에 첫씬에서 작동 시켜줄 스팟을 설정한다. -->
+
+		<radar visible="true"
+		dragable="true"
+		size="100"
+		zoomwithmap="false"
+		headingoffset="0"
+		alpha="0.5"
+		fillcolor="0xCCFFFF"
+		fillalpha="1.0"
+		linewidth="0.0"
+		linecolor="0xCCFFFF"
+		linealpha="0.0"
+		glow="true"
+		glowcolor="0xCCFFFF"
+		glowwidth="4"
+		glowstrength="4"
+		/>
+		<!-- 
+		   스팟에서 수정해야할 값은 lat, lng, heading, onclick 이다.
+		   lat / lng 는 스팟의 x, y좌표
+		   heading은 레이더의 회전값(불확실)
+		   onclick은 클릭했을때 실행하는 함수를 의미
+		-->
+		<spot name="scene_001" spotstyle="DEFAULT" url="" lat="37.5475939" lng="127.0741314" heading="" active="true" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_001);" parent=""/>
+
+		<spot name="scene_002" spotstyle="DEFAULT" url="" lat="37.5474823" lng="127.0740616" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_002);" parent=""/>
+		<spot name="scene_003" spotstyle="DEFAULT" url="" lat="37.5472962" lng="127.074291" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_003);" parent=""/>
+		<spot name="scene_004" spotstyle="DEFAULT" url="" lat="37.5473653" lng="127.0744143" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_004);" parent=""/>
+		<spot name="scene_005" spotstyle="DEFAULT" url="" lat="37.5474674" lng="127.0744693" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_005);" parent=""/>
+		<spot name="scene_006" spotstyle="DEFAULT" url="" lat="37.5475525" lng="127.0745257" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_006);" parent=""/>
+		
+		<spot name="scene_007" spotstyle="DEFAULT" url="" lat="37.5476439" lng="127.0745873" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_007);" parent=""/>
+		<spot name="scene_008" spotstyle="DEFAULT" url="" lat="37.5477332" lng="127.0746464" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_008);" parent=""/>
+		<spot name="scene_009" spotstyle="DEFAULT" url="" lat="37.5478204" lng="127.0747027" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_009);" parent=""/>
+		<spot name="scene_010" spotstyle="DEFAULT" url="" lat="37.5479034" lng="127.0747563" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_010);" parent=""/>
+		<spot name="scene_011" spotstyle="DEFAULT" url="" lat="37.5479863" lng="127.0748046" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_011);" parent=""/>
+		
+		<spot name="scene_012" spotstyle="DEFAULT" url="" lat="37.5480756" lng="127.0748663" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_012);" parent=""/>
+		<spot name="scene_013" spotstyle="DEFAULT" url="" lat="37.5481756" lng="127.074928" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_013);" parent=""/>
+		<spot name="scene_014" spotstyle="DEFAULT" url="" lat="37.5482691" lng="127.074987" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_014);" parent=""/>
+		<spot name="scene_015" spotstyle="DEFAULT" url="" lat="37.5483648" lng="127.0750433" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_015);" parent=""/>
+		<spot name="scene_016" spotstyle="DEFAULT" url="" lat="37.5484669" lng="127.0751023" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_016);" parent=""/>
+		
+		<spot name="scene_017" spotstyle="DEFAULT" url="" lat="37.5485668" lng="127.075156" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_017);" parent=""/>
+		<spot name="scene_018" spotstyle="DEFAULT" url="" lat="37.5486753" lng="127.0752043" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_018);" parent=""/>
+		<spot name="scene_019" spotstyle="DEFAULT" url="" lat="37.5487689" lng="127.0752579" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_019);" parent=""/>
+		<spot name="scene_020" spotstyle="DEFAULT" url="" lat="37.5488582" lng="127.0753089" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_020);" parent=""/>
+		<spot name="scene_021" spotstyle="DEFAULT" url="" lat="37.5489581" lng="127.0753625" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_021);" parent=""/>
+		
+		<spot name="scene_022" spotstyle="DEFAULT" url="" lat="37.5490474" lng="127.0754135" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_022);" parent=""/>
+		<spot name="scene_023" spotstyle="DEFAULT" url="" lat="37.5491389" lng="127.0754778" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_023);" parent=""/>
+		<spot name="scene_024" spotstyle="DEFAULT" url="" lat="37.5492112" lng="127.0755717" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_024);" parent=""/>
+		<spot name="scene_025" spotstyle="DEFAULT" url="" lat="37.5492665" lng="127.075679" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_025);" parent=""/>
+		<spot name="scene_026" spotstyle="DEFAULT" url="" lat="37.5493111" lng="127.075789" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_026);" parent=""/>
+		
+		<spot name="scene_027" spotstyle="DEFAULT" url="" lat="37.5493579" lng="127.0758989" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_027);" parent=""/>
+		<spot name="scene_028" spotstyle="DEFAULT" url="" lat="37.5493877" lng="127.0760143" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_028);" parent=""/>
+		<spot name="scene_029" spotstyle="DEFAULT" url="" lat="37.5494068" lng="127.0761296" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_029);" parent=""/>
+		<spot name="scene_030" spotstyle="DEFAULT" url="" lat="37.5493707" lng="127.0762745" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_030);" parent=""/>
+		<spot name="scene_031" spotstyle="DEFAULT" url="" lat="37.5493218" lng="127.0764247" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_031);" parent=""/>
+		
+		<spot name="scene_032" spotstyle="DEFAULT" url="" lat="37.5492899" lng="127.0765293" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_032);" parent=""/>
+		<spot name="scene_033" spotstyle="DEFAULT" url="" lat="37.5492495" lng="127.0763683" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_033);" parent=""/>
+		<spot name="scene_034" spotstyle="DEFAULT" url="" lat="37.5492452" lng="127.0766392" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_034);" parent=""/>
+		<spot name="scene_035" spotstyle="DEFAULT" url="" lat="37.5492112" lng="127.0767573" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_035);" parent=""/>
+		<spot name="scene_036" spotstyle="DEFAULT" url="" lat="37.5491814" lng="127.0768914" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_036);" parent=""/>
+		
+		<spot name="scene_037" spotstyle="DEFAULT" url="" lat="37.5492027" lng="127.0770282" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_037);" parent=""/>
+		<spot name="scene_038" spotstyle="DEFAULT" url="" lat="37.5492325" lng="127.0771569" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_038);" parent=""/>
+		<spot name="scene_039" spotstyle="DEFAULT" url="" lat="37.5492644" lng="127.0772856" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_039);" parent=""/>
+		<spot name="scene_040" spotstyle="DEFAULT" url="" lat="37.5493919" lng="127.0776638" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_040);" parent=""/>
+		<!-- 39: lat="37.5492644" lng="127.0772856" -->
+		<!-- 40: lat="37.5493005" lng="127.0774037" -->
+		<!-- <spot name="scene_041" spotstyle="DEFAULT" url="" lat="37.549343" lng="127.0775351" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_041);" parent=""/> -->
+		
+		<!-- <spot name="scene_042" spotstyle="DEFAULT" url="" lat="37.5493919" lng="127.0776638" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_042);" parent=""/> -->
+		<spot name="scene_043" spotstyle="DEFAULT" url="" lat="37.5494876" lng="127.0776209" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_043);" parent=""/>
+		<spot name="scene_044" spotstyle="DEFAULT" url="" lat="37.5495833" lng="127.0775726" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_044);" parent=""/>
+		<spot name="scene_045" spotstyle="DEFAULT" url="" lat="37.5496875" lng="127.0775217" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_045);" parent=""/>
+		<spot name="scene_046" spotstyle="DEFAULT" url="" lat="37.5497811" lng="127.0774654" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_046);" parent=""/>
+		
+		<spot name="scene_047" spotstyle="DEFAULT" url="" lat="37.5498725" lng="127.0774144" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_047);" parent=""/>
+		<spot name="scene_048" spotstyle="DEFAULT" url="" lat="37.5499704" lng="127.0773768" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_048);" parent=""/>
+		<spot name="scene_049" spotstyle="DEFAULT" url="" lat="37.5500788" lng="127.07735" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_049);" parent=""/>
+		<spot name="scene_050" spotstyle="DEFAULT" url="" lat="37.5501745" lng="127.077342" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_050);" parent=""/>
+		<spot name="scene_051" spotstyle="DEFAULT" url="" lat="37.5502766" lng="127.07735" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_051);" parent=""/>
+		
+		<spot name="scene_052" spotstyle="DEFAULT" url="" lat="37.5503574" lng="127.0773929" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_052);" parent=""/>
+		<spot name="scene_053" spotstyle="DEFAULT" url="" lat="37.5504552" lng="127.0774224" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_053);" parent=""/>
+
+		<!--  -->
+
+		<spot name="scene_IM_out_001" spotstyle="DEFAULT" url="" lat="37.5507784" lng="127.0773017" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_IM_out_001);" parent=""/>
+		<spot name="scene_IM_out_002" spotstyle="DEFAULT" url="" lat="37.5508805" lng="127.0774359" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_IM_out_002);" parent=""/>
+		<spot name="scene_IM_out_003" spotstyle="DEFAULT" url="" lat="37.5508933" lng="127.0775861" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_IM_out_003);" parent=""/>
+		<spot name="scene_IM_out_004" spotstyle="DEFAULT" url="" lat="37.5508635" lng="127.0777041" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_IM_out_004);" parent=""/>
+		<spot name="scene_IM_out_005" spotstyle="DEFAULT" url="" lat="37.5507954" lng="127.0778489" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_IM_out_005);" parent=""/>
+		
+		<spot name="scene_IM_out_006" spotstyle="DEFAULT" url="" lat="37.5506849" lng="127.0778865" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_IM_out_006);" parent=""/>
+		<spot name="scene_IM_out_007" spotstyle="DEFAULT" url="" lat="37.5505403" lng="127.0778328" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_IM_out_007);" parent=""/>
+		<spot name="scene_IM_out_008" spotstyle="DEFAULT" url="" lat="37.5503446" lng="127.0777363" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_IM_out_008);" parent=""/>
+		<spot name="scene_IM_out_009" spotstyle="DEFAULT" url="" lat="37.5503106" lng="127.0774627" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_IM_out_009);" parent=""/>
+		<spot name="scene_IM_out_010" spotstyle="DEFAULT" url="" lat="37.5504892" lng="127.0772052" heading="" active="false" onover="" onhover="" onout="" onclick="googlemap_clickActive(scene_IM_out_010);" parent=""/>
+		
+		
+    </plugin>
+
+    <!-- bgalpha="0" 투명-->
+	<layer name="map_box" type="container" bgcolor="0xFFFFFF" bgalpha="0" bgroundedge="7" width="400" height="150" align="lefttop" x="5" y="5" scale="0.4" scalechildren="true" bgcapture="false" keep="true" status="small" >
+
+		<layer name="map_F1" url="map_F1.png" keep="true" align="lefttop"  width="100%" height="prop" x="0" y="0"  scale="1" alpha="0.8" enabled="true" handcursor="false" scalechildren="true" maskchildren="true" visible="true" onclick="openmap();" >
+
+			<!-- <layer name="spot_F1_1" style="map_spot" x="152" y="231" onhover="showtext(oriEnt, spotstyle2);" linkedscene="scene_F1_001" /> -->
+			<layer name="spot_F1_1" style="map_spot" x="316" y="530" onhover="showtext(F1, spotstyle2);" linkedscene="scene_F1_001" />
+			<layer name="spot_F1_2" style="map_spot" x="326" y="448" onhover="showtext(F1, spotstyle2);" linkedscene="scene_F1_002" />
+			<layer name="spot_F1_3" style="map_spot" x="345" y="381" onhover="showtext(F1, spotstyle2);" linkedscene="scene_F1_003" />
+			<layer name="spot_F1_4" style="map_spot" x="369" y="328" onhover="showtext(F1, spotstyle2);" linkedscene="scene_F1_004" />
+			<layer name="spot_F1_5" style="map_spot" x="399" y="264" onhover="showtext(F1, spotstyle2);" linkedscene="scene_F1_005" />
+			<layer name="spot_F1_6" style="map_spot" x="437" y="178" onhover="showtext(F1_화장실 앞, spotstyle2);" linkedscene="scene_F1_006" />
+			<layer name="spot_F1_7" style="map_spot" x="424" y="151" onhover="showtext(F1_사물함, spotstyle2);" linkedscene="scene_F1_007" />
+			<layer name="spot_F1_8" style="map_spot" x="394" y="181" onhover="showtext(F1_장애인WC, spotstyle2);" linkedscene="scene_F1_008" />
+			<layer name="spot_F1_9" style="map_spot" x="412" y="184" onhover="showtext(F1_남자WC, spotstyle2);" linkedscene="scene_F1_009" />
+			<layer name="spot_F1_10" style="map_spot" x="358" y="257" onhover="showtext(F1_이용제한ELV, spotstyle2);" linkedscene="scene_F1_010" />
+			<layer name="spot_F1_11" style="map_spot" x="523" y="269" onhover="showtext(F1, spotstyle2);" linkedscene="scene_F1_011" />
+			<layer name="spot_F1_12" style="map_spot" x="657" y="51" onhover="showtext(F1, spotstyle2);" linkedscene="scene_F1_012" />
+
+			<!-- F1_feed_1 -->
+			<layer name="spot_F1_stroller_1" style="map_spot" x="291" y="351" onhover="showtext(F1_유모차맡기는곳, spotstyle2);" linkedscene="scene_F1_stroller_1" />
+			<layer name="spot_F1_stroller_2" style="map_spot" x="312" y="370" onhover="showtext(F1_유모차맡기는곳, spotstyle2);" linkedscene="scene_F1_stroller_2" />
+			<layer name="spot_F1_wc_w1" style="map_spot" x="369" y="191" onhover="showtext(F1_여자WC, spotstyle2);" linkedscene="scene_F1_WC_W1" />
+			<layer name="spot_F1_wc_w2" style="map_spot" x="382" y="172" onhover="showtext(F1_여자WC, spotstyle2);" linkedscene="scene_F1_WC_W2" />
+
+
+			<layer name="radar_F1" keep="true" visible="true"
+			       url="plugins/radar.swf"
+			       alturl="plugins/radar.js"
+			       align="lefttop" edge="center"
+			       fillcolor="0xFFFFFF" fillalpha="0.5" scale="0.5"
+				linecolor="0xf26c4f" linewidth="0.5" linealpha="0.5"
+	  			headingoffset="0"
+				zorder="1" editmode="get:pgmap_settings.editmode"
+			/>
+
+			<layer name="activespot_F1" url="icons/mappointactive.png" keep="true" align="lefttop" edge="center" zorder="13" />
+
+			<layer name="mapinfo" url="icons/map_info.png" align="leftbottom" enabled="false" alpha="0" />
+
+		</layer>
+		<layer name="map_F2" url="map_F2.png" keep="true" align="lefttop"  width="100%" height="prop" x="0" y="0"  scale="1" alpha="0.8" enabled="true" handcursor="false" scalechildren="true" maskchildren="true" visible="true" onclick="openmap();" >
+
+			<layer name="spot_F2_013" style="map_spot" x="624" y="239" onhover="showtext(F2, spotstyle2);" linkedscene="scene_F2_013" />
+			<layer name="spot_F2_014" style="map_spot" x="508" y="241" onhover="showtext(F2, spotstyle2);" linkedscene="scene_F2_014" />
+			<layer name="spot_F2_015" style="map_spot" x="460" y="238" onhover="showtext(F2, spotstyle2);" linkedscene="scene_F2_015" />
+			<layer name="spot_F2_016" style="map_spot" x="482" y="293" onhover="showtext(F2, spotstyle2);" linkedscene="scene_F2_016" />
+			<layer name="spot_F2_017" style="map_spot" x="433" y="382" onhover="showtext(F2, spotstyle2);" linkedscene="scene_F2_017" />
+			<!--<layer name="spot_F2_018" style="map_spot" x="384" y="430" onhover="showtext(F2, spotstyle2);" linkedscene="scene_F2_018" />-->
+			<layer name="spot_F2_019" style="map_spot" x="392" y="361" onhover="showtext(F2, spotstyle2);" linkedscene="scene_F2_019" />
+			<layer name="spot_F2_020" style="map_spot" x="294" y="498" onhover="showtext(F2, spotstyle2);" linkedscene="scene_F2_020" />
+
+			<!-- F2_021 -->
+			<layer name="spot_F2_021" style="map_spot" x="528" y="156" onhover="showtext(F2, spotstyle2);" linkedscene="scene_F2_021" />
+			<layer name="spot_F2_022" style="map_spot" x="488" y="155" onhover="showtext(F2, spotstyle2);" linkedscene="scene_F2_022" />
+			<layer name="spot_F2_023" style="map_spot" x="497" y="193" onhover="showtext(F2, spotstyle2);" linkedscene="scene_F2_023" />
+			<layer name="spot_F2_024" style="map_spot" x="736" y="60" onhover="showtext(F2, spotstyle2);" linkedscene="scene_F2_024" />
+
+			<!-- F2_feed_0101 -->
+			<layer name="spot_F2_feed_0101" style="map_spot" x="454" y="307" onhover="showtext(F2_수유실, spotstyle2);" linkedscene="scene_F2_feed_0101" />
+			<layer name="spot_F2_feed_0102" style="map_spot" x="463" y="292" onhover="showtext(F2_수유실, spotstyle2);" linkedscene="scene_F2_feed_0102" />
+			<layer name="spot_F2_feed_0201" style="map_spot" x="395" y="455" onhover="showtext(F2_수유실, spotstyle2);" linkedscene="scene_F2_feed_0201" />
+			<layer name="spot_F2_feed_0202" style="map_spot" x="374" y="437" onhover="showtext(F2_수유실, spotstyle2);" linkedscene="scene_F2_feed_0202" />
+
+			<!-- F2_WC_W1 -->
+			<layer name="spot_F2_WC_W1" style="map_spot" x="464" y="176" onhover="showtext(F2_여자WC, spotstyle2);" linkedscene="scene_F2_WC_W1" />
+			<layer name="spot_F2_WC_W2" style="map_spot" x="469" y="155" onhover="showtext(F2_여자WC, spotstyle2);" linkedscene="scene_F2_WC_W2" />
+
+
+			<layer name="radar_F2" keep="true" visible="true"
+			       url="plugins/radar.swf"
+			       alturl="plugins/radar.js"
+			       align="lefttop" edge="center"
+			       fillcolor="0xFFFFFF" fillalpha="0.5" scale="0.5"
+				linecolor="0xf26c4f" linewidth="0.5" linealpha="0.5"
+	  			headingoffset="0"
+				zorder="1" editmode="get:pgmap_settings.editmode"
+			/>
+
+			<layer name="activespot_F2" url="icons/mappointactive.png" keep="true" align="lefttop" edge="center" zorder="13" />
+
+			<layer name="mapinfo" url="icons/map_info.png" align="leftbottom" enabled="false" alpha="0" />
+
+		</layer>
+		<layer name="map_F3" url="map_F3.png" keep="true" align="lefttop"  width="100%" height="prop" x="0" y="0"  scale="1" alpha="0.8" enabled="true" handcursor="false" scalechildren="true" maskchildren="true" visible="true" onclick="openmap();" >
+			<layer name="spot_F3_025" style="map_spot" x="551" y="291" onhover="showtext(F3, spotstyle2);" linkedscene="scene_F3_025" />
+			<layer name="spot_F3_026" style="map_spot" x="434" y="286" onhover="showtext(F3, spotstyle2);" linkedscene="scene_F3_026" />
+			<!-- <layer name="spot_F3_027" style="map_spot" x="375" y="379" onhover="showtext(F3, spotstyle2);" linkedscene="scene_F3_027" /> -->
+			<layer name="spot_F3_028" style="map_spot" x="326" y="439" onhover="showtext(F3, spotstyle2);" linkedscene="scene_F3_028" />
+			<layer name="spot_F3_029" style="map_spot" x="366" y="296" onhover="showtext(F3, spotstyle2);" linkedscene="scene_F3_029" />
+			<layer name="spot_F3_030" style="map_spot" x="294" y="397" onhover="showtext(F3_식당, spotstyle2);" linkedscene="scene_F3_030" />
+			<layer name="spot_F3_031" style="map_spot" x="439" y="166" onhover="showtext(F3_식당, spotstyle2);" linkedscene="scene_F3_031" />
+			<layer name="spot_F3_032" style="map_spot" x="468" y="204" onhover="showtext(F3, spotstyle2);" linkedscene="scene_F3_032" />
+			<layer name="spot_F3_033" style="map_spot" x="417" y="244" onhover="showtext(F3, spotstyle2);" linkedscene="scene_F3_033" />
+			<layer name="spot_F3_034" style="map_spot" x="411" y="201" onhover="showtext(F3, spotstyle2);" linkedscene="scene_F3_034" />
+			
+			<!-- F3_feed_0101 -->
+			<layer name="spot_F3_feed_0101" style="map_spot" x="340" y="374" onhover="showtext(F3_수유실, spotstyle2);" linkedscene="scene_F3_feed_0101" />
+			<layer name="spot_F3_feed_0102" style="map_spot" x="379" y="371" onhover="showtext(F3_수유실, spotstyle2);" linkedscene="scene_F3_feed_0102" />
+			<layer name="spot_F3_WC_W1" style="map_spot" x="369" y="240" onhover="showtext(F3_여자WC, spotstyle2);" linkedscene="scene_F3_WC_W1" />
+			<layer name="spot_F3_WC_W2" style="map_spot" x="389" y="201" onhover="showtext(F3_여자WC, spotstyle2);" linkedscene="scene_F3_WC_W2" />
+
+
+			<layer name="radar_F3" keep="true" visible="true"
+			       url="plugins/radar.swf"
+			       alturl="plugins/radar.js"
+			       align="lefttop" edge="center"
+			       fillcolor="0xFFFFFF" fillalpha="0.5" scale="0.5"
+				linecolor="0xf26c4f" linewidth="0.5" linealpha="0.5"
+	  			headingoffset="0"
+				zorder="1" editmode="get:pgmap_settings.editmode"
+			/>
+
+			<layer name="activespot_F3" url="icons/mappointactive.png" keep="true" align="lefttop" edge="center" zorder="13" />
+
+			<layer name="mapinfo" url="icons/map_info.png" align="leftbottom" enabled="false" alpha="0" />
+
+		</layer>
+
+		<layer name="map_B1" url="map_B1.png" keep="true" align="lefttop"  width="90%" height="120%" x="0" y="0"  scale="1" alpha="1" enabled="true" handcursor="false" scalechildren="true" maskchildren="true" visible="true" onclick="openmap();" >
+			<layer name="spot_B1_035" style="map_spot" x="669" y="66" onhover="showtext(B1, spotstyle2);" linkedscene="scene_B1_035" />
+			<layer name="spot_B1_036" style="map_spot" x="561" y="228" onhover="showtext(B1, spotstyle2);" linkedscene="scene_B1_036" />
+			<layer name="spot_B1_037" style="map_spot" x="631" y="266" onhover="showtext(B1, spotstyle2);" linkedscene="scene_B1_037" />
+			<layer name="spot_B1_038" style="map_spot" x="502" y="263" onhover="showtext(B1, spotstyle2);" linkedscene="scene_B1_038" />
+			<layer name="spot_B1_039" style="map_spot" x="496" y="326" onhover="showtext(B1, spotstyle2);" linkedscene="scene_B1_039" />
+			<layer name="spot_B1_040" style="map_spot" x="443" y="249" onhover="showtext(B1, spotstyle2);" linkedscene="scene_B1_040" />
+			<layer name="spot_B1_041" style="map_spot" x="407" y="242" onhover="showtext(B1_이용제한ELV, spotstyle2);" linkedscene="scene_B1_041" />
+			<layer name="spot_B1_042" style="map_spot" x="478" y="168" onhover="showtext(B1, spotstyle2);" linkedscene="scene_B1_042" />
+
+			<layer name="spot_B1_043" style="map_spot" x="446" y="163" onhover="showtext(B1_남자WC, spotstyle2);" linkedscene="scene_B1_043" />
+			<layer name="spot_B1_044" style="map_spot" x="443" y="203" onhover="showtext(B1_남자WC, spotstyle2);" linkedscene="scene_B1_044" />
+			<layer name="spot_B1_WC_W1" style="map_spot" x="414" y="187" onhover="showtext(B1_여자WC, spotstyle2);" linkedscene="scene_B1_WC_W1" />
+			<layer name="spot_B1_WC_W2" style="map_spot" x="427" y="162" onhover="showtext(B1_여자WC, spotstyle2);" linkedscene="scene_B1_WC_W2" />
+
+
+			<layer name="radar_B1" keep="true" visible="true"
+			       url="plugins/radar.swf"
+			       alturl="plugins/radar.js"
+			       align="lefttop" edge="center"
+			       fillcolor="0xFFFFFF" fillalpha="0.5" scale="0.5"
+				linecolor="0xf26c4f" linewidth="0.5" linealpha="0.5"
+	  			headingoffset="0"
+				zorder="1" editmode="get:pgmap_settings.editmode"
+			/>
+
+			<layer name="activespot_B1" url="icons/mappointactive.png" keep="true" align="lefttop" edge="center" zorder="23" />
+
+			<layer name="mapinfo" url="icons/map_info.png" align="leftbottom" enabled="false" alpha="0" />
+
+		</layer>
+
+		<layer name="map_B3" url="map_B3.png" keep="true" align="lefttop"  width="100%" height="80%" x="0" y="0"  scale="1" alpha="1" enabled="true" handcursor="false" scalechildren="true" maskchildren="true" visible="true" onclick="openmap();" >
+			<!-- @do 위치 onhover text표기 정확히 하기 -->
+			<layer name="spot_B3_1" style="map_spot" x="462" y="42" onhover="showtext(타이틀, spotstyle2);" linkedscene="scene_B3_001" />
+			
+			
+
+			<layer name="radar_B3" keep="true" visible="true"
+			       url="plugins/radar.swf"
+			       alturl="plugins/radar.js"
+			       align="lefttop" edge="center"
+			       fillcolor="0xFFFFFF" fillalpha="0.5" scale="0.5"
+				linecolor="0xf26c4f" linewidth="0.5" linealpha="0.5"
+	  			headingoffset="0"
+				zorder="1" editmode="get:pgmap_settings.editmode"
+			/>
+
+			<layer name="activespot_B3" url="icons/mappointactive.png" keep="true" align="lefttop" edge="center" zorder="33" />
+
+			<layer name="mapinfo" url="icons/map_info.png" align="leftbottom" enabled="false" alpha="0" />
+
+		</layer>
+		<layer name="map_STB1" url="map_STB1.png" keep="true" align="lefttop"  width="120%" height="120%" x="0" y="0"  scale="1" alpha="1" enabled="true" handcursor="false" scalechildren="true" maskchildren="true" visible="true" onclick="openmap();" >
+			<!-- <layer name="spot_STB1_1" style="map_spot" x="462" y="42" onhover="showtext(타이틀, spotstyle2);" linkedscene="scene_staChild_B1_001" /> -->
+			<layer name="spot_staChild_B1_001" style="map_spot" x="1335" y="253" onhover="showtext(B1, spotstyle2);" linkedscene="scene_staChild_B1_001" />
+			<layer name="spot_staChild_B1_002" style="map_spot" x="1334" y="230" onhover="showtext(B1, spotstyle2);" linkedscene="scene_staChild_B1_002" />
+			<layer name="spot_staChild_B1_003" style="map_spot" x="1339" y="302" onhover="showtext(B1, spotstyle2);" linkedscene="scene_staChild_B1_003" />
+			<layer name="spot_staChild_B1_004" style="map_spot" x="1460" y="262" onhover="showtext(B1, spotstyle2);" linkedscene="scene_staChild_B1_004" />
+			<layer name="spot_staChild_B1_005" style="map_spot" x="1547" y="302" onhover="showtext(B1, spotstyle2);" linkedscene="scene_staChild_B1_005" />
+			<layer name="spot_staChild_B1_006" style="map_spot" x="1619" y="301" onhover="showtext(B1, spotstyle2);" linkedscene="scene_staChild_B1_006" />
+			<layer name="spot_staChild_B1_007" style="map_spot" x="1721" y="298" onhover="showtext(B1, spotstyle2);" linkedscene="scene_staChild_B1_007" />
+			<layer name="spot_staChild_B1_008" style="map_spot" x="1747" y="356" onhover="showtext(B1, spotstyle2);" linkedscene="scene_staChild_B1_008" />
+			
+
+			<layer name="radar_STB1" keep="true" visible="true"
+			       url="plugins/radar.swf"
+			       alturl="plugins/radar.js"
+			       align="lefttop" edge="center"
+			       fillcolor="0xFFFFFF" fillalpha="0.5" scale="0.5"
+				linecolor="0xf26c4f" linewidth="0.5" linealpha="0.5"
+	  			headingoffset="0"
+				zorder="1" editmode="get:pgmap_settings.editmode"
+			/>
+
+			<layer name="activespot_STB1" url="icons/mappointactive.png" keep="true" align="lefttop" edge="center" zorder="33" />
+
+			<layer name="mapinfo" url="icons/map_info.png" align="leftbottom" enabled="false" alpha="0" />
+
+		</layer>
+		<layer name="map_STB2" url="map_STB2.png" keep="true" align="lefttop"  width="100%" height="100%" x="0" y="0"  scale="1" alpha="1" enabled="true" handcursor="false" scalechildren="true" maskchildren="true" visible="true" onclick="openmap();" >
+			<layer name="spot_staChild_B2_001" style="map_spot" x="1703" y="194" onhover="showtext(B2_수유실, spotstyle2);" linkedscene="scene_staChild_B2_001" />
+			<layer name="spot_staChild_B2_002" style="map_spot" x="1691" y="165" onhover="showtext(B2_수유실, spotstyle2);" linkedscene="scene_staChild_B2_002" />
+			<layer name="spot_staChild_B2_003" style="map_spot" x="1588" y="119" onhover="showtext(B2_ELV, spotstyle2);" linkedscene="scene_staChild_B2_003" />
+			<layer name="spot_staChild_B2_004" style="map_spot" x="1501" y="126" onhover="showtext(B2_ELV, spotstyle2);" linkedscene="scene_staChild_B2_004" />
+			<layer name="spot_staChild_B2_005" style="map_spot" x="1527" y="277" onhover="showtext(B2_ELV, spotstyle2);" linkedscene="scene_staChild_B2_005" />
+			<layer name="spot_staChild_B2_006" style="map_spot" x="1422" y="282" onhover="showtext(B2, spotstyle2);" linkedscene="scene_staChild_B2_006" />
+			<layer name="spot_staChild_B2_007" style="map_spot" x="1399" y="471" onhover="showtext(B2_남WC, spotstyle2);" linkedscene="scene_staChild_B2_007" />
+			<layer name="spot_staChild_B2_008" style="map_spot" x="1305" y="487" onhover="showtext(B2_남WC, spotstyle2);" linkedscene="scene_staChild_B2_008" />
+
+			
+
+			<layer name="radar_STB2" keep="true" visible="true"
+			       url="plugins/radar.swf"
+			       alturl="plugins/radar.js"
+			       align="lefttop" edge="center"
+			       fillcolor="0xFFFFFF" fillalpha="0.5" scale="0.5"
+				linecolor="0xf26c4f" linewidth="0.5" linealpha="0.5"
+	  			headingoffset="0"
+				zorder="1" editmode="get:pgmap_settings.editmode"
+			/>
+
+			<layer name="activespot_STB2" url="icons/mappointactive.png" keep="true" align="lefttop" edge="center" zorder="33" />
+
+			<layer name="mapinfo" url="icons/map_info.png" align="leftbottom" enabled="false" alpha="0" />
+
+		</layer>
+		<layer name="map_STB3" url="map_STB3.png" keep="true" align="lefttop"  width="100%" height="100%" x="0" y="0"  scale="1" alpha="1" enabled="true" handcursor="false" scalechildren="true" maskchildren="true" visible="true" onclick="openmap();" >
+			<layer name="spot_staChild_B3_001" style="map_spot" x="1233" y="227" onhover="showtext(B3_ELV, spotstyle2);" linkedscene="scene_staChild_B3_001" />
+			<layer name="spot_staChild_B3_002" style="map_spot" x="1226" y="115" onhover="showtext(B3_ELV, spotstyle2);" linkedscene="scene_staChild_B3_002" />
+			
+			<layer name="radar_STB3" keep="true" visible="true"
+			       url="plugins/radar.swf"
+			       alturl="plugins/radar.js"
+			       align="lefttop" edge="center"
+			       fillcolor="0xFFFFFF" fillalpha="0.5" scale="0.5"
+				linecolor="0xf26c4f" linewidth="0.5" linealpha="0.5"
+	  			headingoffset="0"
+				zorder="1" editmode="get:pgmap_settings.editmode"
+			/>
+
+			<layer name="activespot_STB3" url="icons/mappointactive.png" keep="true" align="lefttop" edge="center" zorder="33" />
+
+			<layer name="mapinfo" url="icons/map_info.png" align="leftbottom" enabled="false" alpha="0" />
+
+		</layer>
+	</layer>
+
+<!-- @googlemapUse pgmap_off(); googlemap_on();  googlemap_spot(37xx,12yy); -->
+<!-- @use <scene... onstart="googlemap_spot(3x.xx, 12x.xx);" ..> -->
+<action name="googlemap_spot">
+    set(plugin[googlemap].lat,%1);
+    set(plugin[googlemap].lng,%2);
+</action>
+
+<!-- @use googlemap_clickActive(sceneName) -->
+<action name="googlemap_clickActive">
+	plugin[googlemap].activatespot(%1);
+	plugin[googlemap].pantospot(%1);
+	loadscene(%1);
+</action>
+<!-- @use spotActive(sceneName) -->
+<action name="spotActive">
+	plugin[googlemap].activatespot(%1);
+</action>
+
+<!-- @pgmapUse googlemap_off(); pgmap_on(mapName); pgmapspot(spotName,radarHeadingValue,mapName);-->
+
+<!-- @use pgmapspot(spotName,radarHeadingValue,mapName) -->
+<action name="pgmapspot">
+	<!-- off all pgmap radars -->
+	set(layer[radar_B1].visible, false);
+	set(layer[activespot_B1].visible, false);
+	set(layer[radar_B3].visible, false);
+	set(layer[activespot_B3].visible, false);
+	set(layer[radar_F1].visible, false);
+	set(layer[activespot_F1].visible, false);
+	set(layer[radar_F2].visible, false);
+	set(layer[activespot_F2].visible, false);
+	set(layer[radar_F3].visible, false);
+	set(layer[activespot_F3].visible, false);
+	set(layer[radar_STB1].visible, false);
+	set(layer[activespot_STB1].visible, false);
+	set(layer[radar_STB2].visible, false);
+	set(layer[activespot_STB2].visible, false);
+	set(layer[radar_STB3].visible, false);
+	set(layer[activespot_STB3].visible, false);
+	<!-- copy the spot position to the radar and activespot position -->
+	copy(layer[radar_%3].x, layer[%1].x);
+	copy(layer[radar_%3].y, layer[%1].y);
+	copy(layer[activespot_%3].x, layer[%1].x);
+	copy(layer[activespot_%3].y, layer[%1].y);
+	<!-- set the radar heading -->
+	set(layer[radar_%3].heading, %2);
+	<!-- show the radar and the activespot -->
+	set(layer[radar_%3].visible, true);
+	set(layer[activespot_%3].visible, true);
+</action>
+
+<!-- @use pgmap_on(mapName) _B1 B3 F1 F2 F3-->
+<action name="pgmap_on">
+	set(layer[map_box].visible,true);
+
+	set(layer[map_B1].visible,false);
+	set(layer[map_B3].visible,false);
+	set(layer[map_F1].visible,false);
+	set(layer[map_F2].visible,false);
+	set(layer[map_F3].visible,false);
+	set(layer[map_STB1].visible,false);
+	set(layer[map_STB2].visible,false);
+	set(layer[map_STB3].visible,false);
+
+	set(layer[map_%1].visible,true);
+</action>
+<action name="pgmap_off"> set(layer[map_box].visible,false); </action>
+
+<!-- tour.html html5:"prefer" 일때만 작동 -->
+<action name="googlemap_on"> set(plugin[googlemap].visible,true); </action>
+<action name="googlemap_off"> set(plugin[googlemap].visible,false); </action>
+
+<action name="openmap">
+	if(layer[map_box].status== small, 
+		tween(layer[map_box].scale, 1.25);
+		tween(layer[map_box].alpha,0.9);
+		tween(layer[mapinfo].alpha, 1.25); , 
+		tween(layer[map_box].scale, 0.4);
+		tween(layer[map_box].alpha,0.8);
+		tween(layer[mapinfo].alpha, 0)
+	); 
+	switch(layer[map_box].status, small, large);
+</action>
+
+</krpano>
+

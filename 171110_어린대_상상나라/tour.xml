@@ -1,0 +1,2386 @@
+﻿<krpano version="1.19" title="Virtual Tour">
+
+    <include url="skin/vtourskin.xml"/>
+    <include url="userEvents.xml"/>
+    <include url="editor-options-plugins/editor-options-plugins.xml" if="runMode==debug"/>
+    <include url="pgmap/pgmap.xml"/>
+    <include url="pg_total_spots_gen/pg_total_spots_gen.xml"/> <!-- combobox -->
+
+    <!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+    <skin_settings maps="false"
+                   maps_type="google"
+                   maps_bing_api_key=""
+                   maps_google_api_key=""
+                   maps_zoombuttons="false"
+                   gyro="true"
+                   webvr="true"
+                   webvr_gyro_keeplookingdirection="false"
+                   webvr_prev_next_hotspots="true"
+                   littleplanetintro="false"
+                   title="true"
+                   thumbs="true"
+                   thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+                   thumbs_opened="false"
+                   thumbs_text="false"
+
+                   thumbs_dragging="true"
+                   thumbs_onhoverscrolling="false"
+                   thumbs_scrollbuttons="false"
+                   thumbs_scrollindicator="false"
+                   thumbs_loop="false"
+                   tooltips_buttons="false"
+                   tooltips_thumbs="false"
+                   tooltips_hotspots="false"
+                   tooltips_mapspots="false"
+                   deeplinking="false"
+                   loadscene_flags="MERGE"
+                   loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+                   loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+                   loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+                   loadingtext="loading..."
+                   layout_width="100%"
+                   layout_maxwidth="814"
+                   controlbar_width="-24"
+                   controlbar_height="40"
+                   controlbar_offset="20"
+                   controlbar_offset_closed="-40"
+                   controlbar_overlap.no-fractionalscaling="10"
+                   controlbar_overlap.fractionalscaling="0"
+                   design_skin_images="vtourskin.png"
+                   design_bgcolor="0x2D3E50"
+                   design_bgalpha="0.8"
+                   design_bgborder="0"
+                   design_bgroundedge="1"
+                   design_bgshadow="0 4 10 0x000000 0.3"
+                   design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+                   design_thumbborder_padding="2"
+                   design_thumbborder_bgroundedge="0"
+                   design_text_css="color:#FFFFFF; font-family:Arial;"
+                   design_text_shadow="1"
+    />
+
+    <!--
+        For an alternative skin design either change the <skin_settings> values
+        from above or optionally include one of the predefined designs from below.
+    -->
+    <!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+    <!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+    <!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+    <!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+    <!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+    <!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+
+
+    <!-- startup action - load the first scene -->
+    <action name="startup" autorun="onstart">
+        if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+
+        loadscene(scene_staChild_B1_003, null, MERGE);
+        <!--loadscene(get(startscene), null, MERGE);-->
+
+        if(startactions !== null, startactions() );
+        if(runMode==debug, showlog());
+    </action>
+
+    <!-- 화면 우측하단 서울시 로고 -->
+    <layer name="seoul_logo" url="skin/logo.png" align="rightbottom" x="5" y="0" keep="true" scale="0.5" alpha="0.7" onclick="openurl('http://www.seoul.go.kr')"/>  <!-- 화면 바닥(-90도)보기. events[nadirlogorotation] -->
+    <hotspot name="nadir_logo" url="skin/nadir_logo.png" ath="0" atv="90" distorted="true" zoom="true"
+             scale.no-mobile="1.6" scale.mobile="0.4" rotate="0.0" enabled="false" zorder="0" keep="true"
+             rotatewithview="false" linkedscene_lookat="0"/>
+
+    <!--POI::수유실-->
+    <!-- <layer name="babyFeed_f2_1" url="skin/babyFeed_f2_1.png" align="leftbottom" x="10" y="50" keep="true" scale="0.7" alpha="0.7" onclick="loadscene(scene_F2_feed_0101);"/>
+    <layer name="babyFeed_f2_2" url="skin/babyFeed_f2_2.png" align="leftbottom" x="80" y="50" keep="true" scale="0.7" alpha="0.7" onclick="loadscene(scene_F2_feed_0201);"/>
+    <layer name="babyFeed_f3" url="skin/babyFeed_f3.png" align="leftbottom" x="150" y="50" keep="true" scale="0.7" alpha="0.7" onclick="loadscene(scene_F3_feed_0101);"/> 
+    -->
+
+    <!--POI::유모차_맡기는곳-->
+    <!-- <layer name="stroller_f1" url="skin/stroller.png" align="leftbottom" x="220" y="50" keep="true" scale="1.1" alpha="0.7" onclick="loadscene(scene_F1_stroller_1);"/>
+     -->
+
+    <scene name="scene_001" title="001_elv" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5475939,127.0741314); plugin[googlemap].activatespot(scene_001);"
+           thumburl="panos/001.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/001.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/001.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle_elv" ath="27.352" atv="-2.787"
+                 linkedscene="scene_stachild_b1_008" linkedscene_lookat="68,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-175.432" atv="9.144" linkedscene="scene_002" linkedscene_lookat="266,0"/>
+
+    </scene>
+
+    <scene name="scene_002" title="002" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5474823,127.0740616); plugin[googlemap].activatespot(scene_002);"
+           thumburl="panos/002.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/002.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/002.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="85.742" atv="6.019" linkedscene="scene_001" linkedscene_lookat="30,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle_elv" ath="90.647" atv="-2.346" linkedscene="scene_stachild_b1_008" linkedscene_lookat="67,0"/>
+        <hotspot name="spot4" style="skin_hotspotstyle" ath="-154.760" atv="1.243" linkedscene="scene_003" linkedscene_lookat="297,0"/>
+        <hotspot name="spot5" style="skin_hotspotstyle_long" ath="-176.435" atv="0.242" linkedscene="scene_005" linkedscene_lookat="318,0"/>
+
+    </scene>
+
+    <scene name="scene_003" title="003" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5472962,127.074291); plugin[googlemap].activatespot(scene_003);"
+           thumburl="panos/003.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/003.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/003.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="146.867" atv="2.171" linkedscene="scene_002" linkedscene_lookat="27,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-60.917" atv="3.635" linkedscene="scene_004" linkedscene_lookat="188,0"/>
+
+    </scene>
+
+    <scene name="scene_004" title="004" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5473653,127.0744143); plugin[googlemap].activatespot(scene_004);"
+           thumburl="panos/004.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/004.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/004.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="39.547" atv="5.924" linkedscene="scene_003" linkedscene_lookat="147,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="129.589" atv="7.693" linkedscene="scene_005" linkedscene_lookat="232,0"/>
+
+    </scene>
+
+    <scene name="scene_005" title="005" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5474674,127.0744693); plugin[googlemap].activatespot(scene_005);"
+           thumburl="panos/005.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/005.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/005.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="42.245" atv="3.715" linkedscene="scene_004" linkedscene_lookat="305,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-122.944" atv="14.879" linkedscene="scene_006" linkedscene_lookat="212,0"/>
+        <hotspot name="spot4" style="skin_hotspotstyle_long" ath="-104.397" atv="1.107" linkedscene="scene_015" linkedscene_lookat="245,0"/>
+        <hotspot name="spot5" style="skin_hotspotstyle_long" ath="137.817" atv="0.607" linkedscene="scene_002" linkedscene_lookat="2,0"/>
+
+    </scene>
+
+    <scene name="scene_006" title="006" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5475525,127.0745257); plugin[googlemap].activatespot(scene_006);"
+           thumburl="panos/006.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/006.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/006.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="35.312" atv="3.134" linkedscene="scene_005" linkedscene_lookat="58,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-144.271" atv="6.547" linkedscene="scene_007" linkedscene_lookat="193,0"/>
+
+    </scene>
+
+    <scene name="scene_007" title="007" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5476439,127.0745873); plugin[googlemap].activatespot(scene_007);"
+           thumburl="panos/007.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/007.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/007.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="11.663" atv="4.414" linkedscene="scene_006" linkedscene_lookat="38,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-166.387" atv="10.195" linkedscene="scene_008" linkedscene_lookat="196,0"/>
+
+    </scene>
+
+    <scene name="scene_008" title="008" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5477332,127.0746464); plugin[googlemap].activatespot(scene_008);"
+           thumburl="panos/008.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/008.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/008.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="17.290" atv="6.411" linkedscene="scene_007" linkedscene_lookat="13,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-163.502" atv="4.265" linkedscene="scene_009" linkedscene_lookat="7,0"/>
+
+    </scene>
+
+    <scene name="scene_009" title="009" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5478204,127.0747027); plugin[googlemap].activatespot(scene_009);"
+           thumburl="panos/009.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/009.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/009.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-172.988" atv="6.004" linkedscene="scene_008" linkedscene_lookat="16,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="7.982" atv="6.260" linkedscene="scene_010" linkedscene_lookat="218,0"/>
+
+    </scene>
+
+    <scene name="scene_010" title="010" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5479034,127.0747563); plugin[googlemap].activatespot(scene_010);"
+           thumburl="panos/010.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/010.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/010.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="29.451" atv="5.706" linkedscene="scene_009" linkedscene_lookat="185,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-153.049" atv="3.428" linkedscene="scene_011" linkedscene_lookat="131,0"/>
+
+    </scene>
+
+    <scene name="scene_011" title="011" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5479863,127.0748046); plugin[googlemap].activatespot(scene_011);"
+           thumburl="panos/011.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/011.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/011.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-54.720" atv="4.919" linkedscene="scene_010" linkedscene_lookat="38,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="125.064" atv="3.566" linkedscene="scene_012" linkedscene_lookat="265,0"/>
+
+    </scene>
+
+    <scene name="scene_012" title="012" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5480756,127.0748663); plugin[googlemap].activatespot(scene_012);"
+           thumburl="panos/012.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/012.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/012.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="81.362" atv="4.129" linkedscene="scene_011" linkedscene_lookat="311,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-98.750" atv="5.218" linkedscene="scene_013" linkedscene_lookat="357,0"/>
+
+    </scene>
+
+    <scene name="scene_013" title="013" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5481756,127.074928); plugin[googlemap].activatespot(scene_013);"
+           thumburl="panos/013.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/013.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/013.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="175.297" atv="5.988" linkedscene="scene_012" linkedscene_lookat="85,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-2.285" atv="11.122" linkedscene="scene_014" linkedscene_lookat="245,0"/>
+
+    </scene>
+
+    <scene name="scene_014" title="014" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5482691,127.074987); plugin[googlemap].activatespot(scene_014);"
+           thumburl="panos/014.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/014.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/014.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="69.890" atv="13.239" linkedscene="scene_013" linkedscene_lookat="180,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-110.441" atv="6.039" linkedscene="scene_015" linkedscene_lookat="254,0"/>
+
+    </scene>
+
+    <scene name="scene_015" title="015" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5483648,127.0750433); plugin[googlemap].activatespot(scene_015);"
+           thumburl="panos/015.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/015.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/015.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="70.434" atv="6.449" linkedscene="scene_014" linkedscene_lookat="65,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-108.873" atv="6.907" linkedscene="scene_016" linkedscene_lookat="84,0"/>
+        <hotspot name="spot4" style="skin_hotspotstyle_long" ath="-109.688" atv="1.722" linkedscene="scene_022" linkedscene_lookat="136,0"/>
+        <hotspot name="spot5" style="skin_hotspotstyle_long" ath="70.505" atv="-0.678" linkedscene="scene_005" linkedscene_lookat="81,0"/>
+
+    </scene>
+
+    <scene name="scene_016" title="016" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5484669,127.0751023); plugin[googlemap].activatespot(scene_016);"
+           thumburl="panos/016.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/016.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/016.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-97.005" atv="4.259" linkedscene="scene_015" linkedscene_lookat="74,0"/>
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="85.183" atv="12.305" linkedscene="scene_017" linkedscene_lookat="139,0"/>
+
+    </scene>
+
+    <scene name="scene_017" title="017" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5485668,127.075156); plugin[googlemap].activatespot(scene_017);"
+           thumburl="panos/017.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/017.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/017.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-47.286" atv="5.844" linkedscene="scene_016" linkedscene_lookat="266,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="132.967" atv="10.034" linkedscene="scene_018" linkedscene_lookat="205,0"/>
+
+    </scene>
+
+    <scene name="scene_018" title="018" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5486753,127.0752043); plugin[googlemap].activatespot(scene_018);"
+           thumburl="panos/018.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/018.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/018.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="26.008" atv="5.410" linkedscene="scene_017" linkedscene_lookat="319,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-155.503" atv="13.542" linkedscene="scene_019" linkedscene_lookat="190,0"/>
+
+    </scene>
+
+    <scene name="scene_019" title="019" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5487689,127.0752579); plugin[googlemap].activatespot(scene_019);"
+           thumburl="panos/019.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/019.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/019.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="8.538" atv="6.248" linkedscene="scene_018" linkedscene_lookat="25,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-169.986" atv="18.466" linkedscene="scene_020" linkedscene_lookat="103,0"/>
+
+    </scene>
+
+    <scene name="scene_020" title="020" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5488582,127.0753089); plugin[googlemap].activatespot(scene_020);"
+           thumburl="panos/020.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/020.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/020.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-80.318" atv="14.437" linkedscene="scene_019" linkedscene_lookat="10,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="101.891" atv="9.636" linkedscene="scene_021" linkedscene_lookat="175,0"/>
+
+    </scene>
+
+    <scene name="scene_021" title="021" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5489581,127.0753625); plugin[googlemap].activatespot(scene_021);"
+           thumburl="panos/021.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/021.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/021.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-6.530" atv="9.005" linkedscene="scene_020" linkedscene_lookat="283,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="174.426" atv="17.114" linkedscene="scene_022" linkedscene_lookat="149,0"/>
+
+    </scene>
+
+    <scene name="scene_022" title="022" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5490474,127.0754135); plugin[googlemap].activatespot(scene_022);"
+           thumburl="panos/022.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/022.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/022.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-43.349" atv="10.942" linkedscene="scene_021" linkedscene_lookat="355,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="160.250" atv="6.640" linkedscene="scene_023" linkedscene_lookat="158,0"/>
+        <hotspot name="spot4" style="skin_hotspotstyle_long" ath="169.996" atv="-1.581" linkedscene="scene_031" linkedscene_lookat="352,0"/>
+        <hotspot name="spot5" style="skin_hotspotstyle_long" ath="-45.475" atv="-0.191" linkedscene="scene_015" linkedscene_lookat="78,0"/>
+
+    </scene>
+
+    <scene name="scene_023" title="023" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5491389,127.0754778); plugin[googlemap].activatespot(scene_023);"
+           thumburl="panos/023.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/023.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/023.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-34.266" atv="5.548" linkedscene="scene_022" linkedscene_lookat="347,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="148.809" atv="5.685" linkedscene="scene_024" linkedscene_lookat="114,0"/>
+
+    </scene>
+
+    <scene name="scene_024" title="024" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5492112,127.0755717); plugin[googlemap].activatespot(scene_024);"
+           thumburl="panos/024.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/024.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/024.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-68.990" atv="4.991" linkedscene="scene_023" linkedscene_lookat="341,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="113.934" atv="8.148" linkedscene="scene_025" linkedscene_lookat="153,0"/>
+
+    </scene>
+
+    <scene name="scene_025" title="025" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5492665,127.075679); plugin[googlemap].activatespot(scene_025);"
+           thumburl="panos/025.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/025.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/025.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-41.302" atv="5.505" linkedscene="scene_024" linkedscene_lookat="294,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="145.120" atv="5.205" linkedscene="scene_026" linkedscene_lookat="191,0"/>
+
+    </scene>
+
+    <scene name="scene_026" title="026" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5493111,127.075789); plugin[googlemap].activatespot(scene_026);"
+           thumburl="panos/026.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/026.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/026.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="10.333" atv="3.519" linkedscene="scene_025" linkedscene_lookat="329,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="175.765" atv="6.870" linkedscene="scene_027" linkedscene_lookat="66,0"/>
+
+
+    </scene>
+
+    <scene name="scene_027" title="027" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5493579,127.0758989); plugin[googlemap].activatespot(scene_027);"
+           thumburl="panos/027.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/027.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/027.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-126.914" atv="5.575" linkedscene="scene_026" linkedscene_lookat="11,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="60.965" atv="5.713" linkedscene="scene_028" linkedscene_lookat="227,0"/>
+
+    </scene>
+
+    <scene name="scene_028" title="028" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5493877,127.0760143); plugin[googlemap].activatespot(scene_028);"
+           thumburl="panos/028.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/028.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/028.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="40.596" atv="5.329" linkedscene="scene_027" linkedscene_lookat="246,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-143.539" atv="5.867" linkedscene="scene_029" linkedscene_lookat="201,0"/>
+
+    </scene>
+
+    <scene name="scene_029" title="029" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5494068,127.0761296); plugin[googlemap].activatespot(scene_029);"
+           thumburl="panos/029.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/029.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/029.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="16.001" atv="6.329" linkedscene="scene_028" linkedscene_lookat="47,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-98.708" atv="7.205" linkedscene="scene_030" linkedscene_lookat="348,0"/>
+
+    </scene>
+
+    <scene name="scene_030" title="030" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5493707,127.0762745); plugin[googlemap].activatespot(scene_030);"
+           thumburl="panos/030.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/030.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/030.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="162.356" atv="4.601" linkedscene="scene_029" linkedscene_lookat="83,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-17.958" atv="6.555" linkedscene="scene_031" linkedscene_lookat="194,0"/>
+
+
+    </scene>
+
+    <scene name="scene_031" title="031" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5493218,127.0764247); plugin[googlemap].activatespot(scene_031);"
+           thumburl="panos/031.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/031.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/031.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="9.781" atv="5.158" linkedscene="scene_030" linkedscene_lookat="168,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-175.030" atv="6.866" linkedscene="scene_032" linkedscene_lookat="202,0"/>
+        <hotspot name="spot4" style="skin_hotspotstyle" ath="-76.682" atv="4.191" linkedscene="scene_033" linkedscene_lookat="275,0"/>
+        <hotspot name="spot5" style="skin_hotspotstyle_long" ath="172.517" atv="0.533" linkedscene="scene_040" linkedscene_lookat="131,0"/>
+        <hotspot name="spot6" style="skin_hotspotstyle_long" ath="-16.344" atv="-6.386" linkedscene="scene_022" linkedscene_lookat="0,0"/>
+
+
+    </scene>
+
+    <scene name="scene_032" title="032" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5492899,127.0765293); plugin[googlemap].activatespot(scene_032);"
+           thumburl="panos/032.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/032.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/032.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="17.842" atv="5.804" linkedscene="scene_031" linkedscene_lookat="14,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-26.557" atv="3.006" linkedscene="scene_033" linkedscene_lookat="317,0"/>
+        <hotspot name="spot4" style="skin_hotspotstyle" ath="-163.141" atv="7.943" linkedscene="scene_034" linkedscene_lookat="234,0"/>
+
+
+    </scene>
+
+    <scene name="scene_033" title="033" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5492495,127.0763683); plugin[googlemap].activatespot(scene_033);"
+           thumburl="panos/033.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/033.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/033.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="131.413" atv="3.413" linkedscene="scene_032" linkedscene_lookat="230,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="92.372" atv="4.571" linkedscene="scene_031" linkedscene_lookat="103,0"/>
+
+    </scene>
+
+    <scene name="scene_034" title="034" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5492452,127.0766392); plugin[googlemap].activatespot(scene_034);"
+           thumburl="panos/034.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/034.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/034.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="58.791" atv="4.362" linkedscene="scene_032" linkedscene_lookat="58,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-125.880" atv="7.170" linkedscene="scene_035" linkedscene_lookat="300,0"/>
+
+    </scene>
+
+    <scene name="scene_035" title="035" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5492112,127.0767573); plugin[googlemap].activatespot(scene_035);"
+           thumburl="panos/035.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/035.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/035.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="112.331" atv="4.477" linkedscene="scene_034" linkedscene_lookat="60,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-79.827" atv="7.765" linkedscene="scene_036" linkedscene_lookat="153,0"/>
+
+
+    </scene>
+
+    <scene name="scene_036" title="036" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5491814,127.0768914); plugin[googlemap].activatespot(scene_036);"
+           thumburl="panos/036.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/036.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/036.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-32.062" atv="4.094" linkedscene="scene_035" linkedscene_lookat="116,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="142.818" atv="9.795" linkedscene="scene_037" linkedscene_lookat="198,0"/>
+
+    </scene>
+
+    <scene name="scene_037" title="037" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5492027,127.0770282); plugin[googlemap].activatespot(scene_037);"
+           thumburl="panos/037.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/037.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/037.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="26.652" atv="5.012" linkedscene="scene_036" linkedscene_lookat="333,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-157.508" atv="4.776" linkedscene="scene_038" linkedscene_lookat="210,0"/>
+
+
+    </scene>
+
+    <scene name="scene_038" title="038" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5492325,127.0771569); plugin[googlemap].activatespot(scene_038);"
+           thumburl="panos/038.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/038.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/038.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="33.317" atv="3.229" linkedscene="scene_037" linkedscene_lookat="18,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-149.802" atv="5.798" linkedscene="scene_039" linkedscene_lookat="271,0"/>
+
+    </scene>
+
+    <scene name="scene_039" title="039" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5492644,127.0772856); plugin[googlemap].activatespot(scene_039);"
+           thumburl="panos/039.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/039.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/039.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="95.377" atv="6.744" linkedscene="scene_038" linkedscene_lookat="30,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-90.446" atv="2.927" linkedscene="scene_040" linkedscene_lookat="120,0"/>
+
+    </scene>
+
+    <scene name="scene_040" title="040" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5493005,127.0774037); plugin[googlemap].activatespot(scene_040);"
+           thumburl="panos/040.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/040.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/040.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-61.953" atv="5.343" linkedscene="scene_039" linkedscene_lookat="91,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="39.324" atv="12.868" linkedscene="scene_043" linkedscene_lookat="342,0"/>
+        <hotspot name="spot4" style="skin_hotspotstyle_long" ath="47.167" atv="1.310" linkedscene="scene_046" linkedscene_lookat="42,0"/>
+        <hotspot name="spot5" style="skin_hotspotstyle_long" ath="-50.627" atv="-1.053" linkedscene="scene_031" linkedscene_lookat="352,0"/>
+
+
+    </scene>
+
+    <!-- <scene name="scene_041" title="041" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.549343,127.0775351); plugin[googlemap].activatespot(scene_041);" thumburl="panos/041.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+        <preview url="panos/041.tiles/preview.jpg" />
+
+        <image>
+            <cube url="panos/041.tiles/pano_%s.jpg" />
+        </image>
+
+    </scene>-->
+
+    <!-- <scene name="scene_042" title="042" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5493919,127.0776638); plugin[googlemap].activatespot(scene_042);" thumburl="panos/042.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+        <preview url="panos/042.tiles/preview.jpg" />
+
+        <image>
+            <cube url="panos/042.tiles/pano_%s.jpg" />
+        </image>
+
+    </scene>  -->
+
+    <scene name="scene_043" title="043" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5494876,127.0776209); plugin[googlemap].activatespot(scene_043);"
+           thumburl="panos/043.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/043.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/043.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="159.880" atv="6.396" linkedscene="scene_040" linkedscene_lookat="219,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-16.302" atv="10.512" linkedscene="scene_044" linkedscene_lookat="79,0"/>
+
+    </scene>
+
+    <scene name="scene_044" title="044" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5495833,127.0775726); plugin[googlemap].activatespot(scene_044);"
+           thumburl="panos/044.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/044.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/044.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-97.833" atv="5.945" linkedscene="scene_043" linkedscene_lookat="162,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="82.897" atv="7.840" linkedscene="scene_045" linkedscene_lookat="110,0"/>
+
+    </scene>
+
+    <scene name="scene_045" title="045" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5496875,127.0775217); plugin[googlemap].activatespot(scene_045);"
+           thumburl="panos/045.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/045.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/045.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-65.007" atv="5.383" linkedscene="scene_044" linkedscene_lookat="271,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="114.247" atv="5.600" linkedscene="scene_046" linkedscene_lookat="42,0"/>
+
+    </scene>
+
+    <scene name="scene_046" title="046" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5497811,127.0774654); plugin[googlemap].activatespot(scene_046);"
+           thumburl="panos/046.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/046.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/046.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-136.684" atv="6.715" linkedscene="scene_045" linkedscene_lookat="290,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle_long" ath="-138.783" atv="-0.651" linkedscene="scene_040" linkedscene_lookat="216,0"/>
+        <hotspot name="spot4" style="skin_hotspotstyle" ath="9.641" atv="7.316" linkedscene="scene_047" linkedscene_lookat="273,0"/>
+        <hotspot name="spot5" style="skin_hotspotstyle_long" ath="29.651" atv="0.645" linkedscene="scene_052" linkedscene_lookat="40,0"/>
+
+    </scene>
+
+    <scene name="scene_047" title="047" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5498725,127.0774144); plugin[googlemap].activatespot(scene_047);"
+           thumburl="panos/047.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/047.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/047.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="94.684" atv="6.772" linkedscene="scene_046" linkedscene_lookat="187,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-28.477" atv="4.711" linkedscene="scene_048" linkedscene_lookat="145,0"/>
+
+    </scene>
+
+    <scene name="scene_048" title="048" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5499704,127.0773768); plugin[googlemap].activatespot(scene_048);"
+           thumburl="panos/048.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/048.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/048.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-49.961" atv="5.608" linkedscene="scene_047" linkedscene_lookat="144,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="134.833" atv="6.741" linkedscene="scene_049" linkedscene_lookat="51,0"/>
+
+    </scene>
+
+    <scene name="scene_049" title="049" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5500788,127.07735); plugin[googlemap].activatespot(scene_049);"
+           thumburl="panos/049.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/049.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/049.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-133.566" atv="5.731" linkedscene="scene_048" linkedscene_lookat="325,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="43.558" atv="6.722" linkedscene="scene_050" linkedscene_lookat="54,0"/>
+
+    </scene>
+
+    <scene name="scene_050" title="050" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5501745,127.077342); plugin[googlemap].activatespot(scene_050);"
+           thumburl="panos/050.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/050.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/050.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-126.065" atv="8.135" linkedscene="scene_049" linkedscene_lookat="231,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="40.969" atv="8.052" linkedscene="scene_051" linkedscene_lookat="34,0"/>
+
+    </scene>
+
+    <scene name="scene_051" title="051" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5502766,127.07735); plugin[googlemap].activatespot(scene_051);"
+           thumburl="panos/051.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/051.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/051.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-144.328" atv="6.200" linkedscene="scene_050" linkedscene_lookat="234,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="33.983" atv="4.799" linkedscene="scene_052" linkedscene_lookat="43,0"/>
+
+    </scene>
+
+    <scene name="scene_052" title="052" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5503574,127.0773929); plugin[googlemap].activatespot(scene_052);"
+           thumburl="panos/052.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/052.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/052.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-141.454" atv="6.841" linkedscene="scene_051" linkedscene_lookat="214,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="41.984" atv="5.839" linkedscene="scene_F1_001" linkedscene_lookat="206,0"/>
+        <hotspot name="spot4" style="skin_hotspotstyle_long" ath="-140.388" atv="1.990" linkedscene="scene_046" linkedscene_lookat="209,0"/>
+        <hotspot name="spot5" style="skin_hotspotstyle" ath="10.002" atv="2.733" linkedscene="scene_im_out_001" linkedscene_lookat="206,0"/>
+        <hotspot name="spot6" style="skin_hotspotstyle" ath="154.365" atv="1.911" linkedscene="scene_im_out_010" linkedscene_lookat="86,0"/>
+
+    </scene>
+
+    <!--<scene name="scene_053" title="053" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5504552,127.0774224); plugin[googlemap].activatespot(scene_053);"-->
+           <!--thumburl="panos/053.tiles/thumb.jpg" lat="" lng="" heading="">-->
+
+        <!--<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"-->
+              <!--limitview="auto"/>-->
+
+        <!--<preview url="panos/053.tiles/preview.jpg"/>-->
+
+        <!--<image>-->
+            <!--<cube url="panos/053.tiles/pano_%s.jpg"/>-->
+        <!--</image>-->
+        <!---->
+
+    <!--</scene>-->
+
+
+    <scene name="scene_F1_001" title="F1_001" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_1,119.32,F1);"
+           thumburl="panos/F1_001.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_001.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_001.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="7.872" atv="8.121" linkedscene="scene_052" linkedscene_lookat="222,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_elv" ath="-172.304" atv="-0.287" linkedscene="scene_b3_01" linkedscene_lookat="31,0"/>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-128.492" atv="-0.792" linkedscene="scene_f1_002" linkedscene_lookat="145,0" />
+
+    </scene>
+
+    <scene name="scene_F1_002" title="F1_002" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_2,219.49,F1);"
+           thumburl="panos/F1_002.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_002.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_002.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-32.789" atv="3.805" linkedscene="scene_f1_001" linkedscene_lookat="49,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="114.737" atv="5.629" linkedscene="scene_f1_003" linkedscene_lookat="333,0" />
+
+    </scene>
+
+    <scene name="scene_F1_003" title="F1_003" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_3,-4.64,F1);"
+           thumburl="panos/F1_003.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_003.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_003.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-36.825" atv="10.164" linkedscene="scene_f1_004" linkedscene_lookat="122,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="160.385" atv="7.580" linkedscene="scene_f1_002" linkedscene_lookat="303,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-98.397" atv="8.987" linkedscene="scene_f1_stroller_2" linkedscene_lookat="301,0" />
+
+    </scene>
+
+    <scene name="scene_F1_004" title="F1_004" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_4,256.87,F1);"
+           thumburl="panos/F1_004.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_004.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_004.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="102.411" atv="7.401" linkedscene="scene_f1_005" linkedscene_lookat="203,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-66.189" atv="10.916" linkedscene="scene_f1_003" linkedscene_lookat="153,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle_left" ath="-152.734" atv="-2.942" linkedscene="scene_f1_011" linkedscene_lookat="255,0" />
+
+    </scene>
+
+    <scene name="scene_F1_005" title="F1_005" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_5,165.98,F1);"
+           thumburl="panos/F1_005.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_005.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_005.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="20.617" atv="8.376" linkedscene="scene_f1_004" linkedscene_lookat="287,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="114.772" atv="12.328" linkedscene="scene_f1_010" linkedscene_lookat="215,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-161.531" atv="4.628" linkedscene="scene_f1_006" linkedscene_lookat="303,0" />
+
+    </scene>
+
+    <scene name="scene_F1_006" title="F1_006" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_6,65.70,F1);"
+           thumburl="panos/F1_006.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_006.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_006.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="131.306" atv="5.157" linkedscene="scene_f1_005" linkedscene_lookat="23,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-89.551" atv="18.968" linkedscene="scene_f1_007" linkedscene_lookat="251,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle_left" ath="-144.988" atv="14.499" linkedscene="scene_f1_009" linkedscene_lookat="222,0" />
+		<hotspot name="spot5" style="skin_hotspotstyle_left" ath="-150.500" atv="20.141" linkedscene="scene_f1_008" linkedscene_lookat="241,0" />
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="-140.240" atv="10.105" linkedscene="scene_f1_wc_w2" linkedscene_lookat="166,0" />
+
+    </scene>
+
+    <scene name="scene_F1_007" title="F1_007" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_7,66.40,F1);"
+           thumburl="panos/F1_007.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_007.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_007.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="68.252" atv="12.310" linkedscene="scene_f1_006" linkedscene_lookat="91,0" />
+
+    </scene>
+
+    <scene name="scene_F1_008" title="F1_008" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_8,-40.09,F1);"
+           thumburl="panos/F1_008.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_008.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_008.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_right" ath="85.709" atv="33.313" linkedscene="scene_f1_006" linkedscene_lookat="37,0" />
+
+    </scene>
+
+    <scene name="scene_F1_009" title="F1_009" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_9,-7.85,F1);"
+           thumburl="panos/F1_009.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_009.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_009.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_right" ath="43.546" atv="6.798" linkedscene="scene_f1_006" linkedscene_lookat="37,0" />
+
+    </scene>
+
+    <scene name="scene_F1_010" title="F1_010_elv" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_10,64.02,F1);"
+           thumburl="panos/F1_010.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_010.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_010.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="32.897" atv="11.342" linkedscene="scene_f1_005" linkedscene_lookat="292,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle_elv" ath="-39.656" atv="-17.923" linkedscene="scene_f3_029" linkedscene_lookat="118,0" />
+    <hotspot name="spot3" style="skin_hotspotstyle_elv" ath="-39.508" atv="-11.539" linkedscene="scene_f2_015" linkedscene_lookat="193,0" />
+		<hotspot name="spot5" style="skin_hotspotstyle_elv" ath="-39.495" atv="-1.566" linkedscene="scene_b1_041" linkedscene_lookat="104,0"/>
+		
+
+    </scene>
+
+    <scene name="scene_F1_011" title="F1_011" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_11,121.64,F1);"
+           thumburl="panos/F1_011.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_011.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_011.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="111.849" atv="-2.695" linkedscene="scene_f1_004" linkedscene_lookat="353,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-102.534" atv="1.377" linkedscene="scene_f1_012" linkedscene_lookat="61,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-92.026" atv="8.638" linkedscene="scene_b1_035" linkedscene_lookat="275,0"/>
+
+    </scene>
+
+    <scene name="scene_F1_012" title="F1_012" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_12,-36.29,F1);"
+           thumburl="panos/F1_012.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_012.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_012.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-100.545" atv="10.240" linkedscene="scene_f1_011" linkedscene_lookat="79,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-118.660" atv="4.956" linkedscene="scene_f2_013" linkedscene_lookat="289,0" />
+
+    </scene>
+
+    <scene name="scene_F1_stroller_1" title="F1_stroller_1" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_stroller_1,-87.06,F1);" thumburl="panos/F1_stroller_1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_stroller_1.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_stroller_1.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-139.983" atv="16.850" linkedscene="scene_f1_stroller_2" linkedscene_lookat="143,0" />
+
+    </scene>
+
+    <scene name="scene_F1_stroller_2" title="F1_stroller_2" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_stroller_2,-10.65,F1);" thumburl="panos/F1_stroller_2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_stroller_2.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_stroller_2.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-50.351" atv="14.946" linkedscene="scene_f1_stroller_1" linkedscene_lookat="36,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="112.003" atv="18.314" linkedscene="scene_f1_003" linkedscene_lookat="82,0" />
+
+    </scene>
+
+    <scene name="scene_F1_WC_W1" title="F1_WC_W1" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_wc_w1,-9.10,F1);" thumburl="panos/F1_WC_W1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_WC_W1.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_WC_W1.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="34.215" atv="15.950" linkedscene="scene_f1_wc_w2" linkedscene_lookat="252,0" />
+
+    </scene>
+
+    <scene name="scene_F1_WC_W2" title="F1_WC_W2" onstart="googlemap_off(); pgmap_on(F1); pgmapspot(spot_F1_wc_w2,100.36,F1);" thumburl="panos/F1_WC_W2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F1_WC_W2.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F1_WC_W2.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="69.860" atv="17.110" linkedscene="scene_f1_wc_w1" linkedscene_lookat="215,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-18.920" atv="9.669" linkedscene="scene_f1_006" linkedscene_lookat="43,0" />
+		
+
+    </scene>
+
+    <scene name="scene_F2_013" title="F2_013" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_013,-87.30,F2);"
+           thumburl="panos/F2_013.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_013.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_013.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="132.028" atv="9.369" linkedscene="scene_f1_012" linkedscene_lookat="180,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="115.158" atv="-3.162" linkedscene="scene_f2_024" linkedscene_lookat="66,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="10.431" atv="5.488" linkedscene="scene_f2_014" linkedscene_lookat="239,0" />
+
+    </scene>
+
+    <scene name="scene_F2_014" title="F2_014" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_014,33.34,F2);"
+           thumburl="panos/F2_014.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_014.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_014.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="56.214" atv="3.548" linkedscene="scene_f2_013" linkedscene_lookat="182,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-32.732" atv="5.673" linkedscene="scene_f2_021" linkedscene_lookat="340,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-117.398" atv="12.338" linkedscene="scene_f2_015" linkedscene_lookat="193,0" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="152.414" atv="8.871" linkedscene="scene_f2_016" linkedscene_lookat="340,0" />
+
+    </scene>
+
+    <scene name="scene_F2_015" title="F2_015_elv" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_015,-4.54,F2);"
+           thumburl="panos/F2_015.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_015.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_015.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-77.926" atv="12.424" linkedscene="scene_f2_014" linkedscene_lookat="58,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_elv" ath="-153.971" atv="-7.469" linkedscene="scene_f1_010" linkedscene_lookat="306,0" />
+		
+		<hotspot name="spot5" style="skin_hotspotstyle_elv" ath="-154.135" atv="-18.318" linkedscene="scene_f3_029" linkedscene_lookat="118,0" />
+		<hotspot name="spot6" style="skin_hotspotstyle_elv" ath="-153.969" atv="-2.146" linkedscene="scene_b1_041" linkedscene_lookat="104,0"/>
+		
+
+    </scene>
+
+    <scene name="scene_F2_016" title="F2_016" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_016,-58.99,F2);"
+           thumburl="panos/F2_016.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_016.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_016.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="53.947" atv="8.069" linkedscene="scene_f2_014" linkedscene_lookat="333,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-38.204" atv="24.046" linkedscene="scene_f2_feed_0102" linkedscene_lookat="237,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-106.626" atv="5.417" linkedscene="scene_f2_017" linkedscene_lookat="180,0" />
+
+    </scene>
+
+    <scene name="scene_F2_017" title="F2_017" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_017,17.30,F2);"
+           thumburl="panos/F2_017.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_017.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_017.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-16.071" atv="4.777" linkedscene="scene_f2_016" linkedscene_lookat="67,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-78.706" atv="9.881" linkedscene="scene_f2_019" linkedscene_lookat="172,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="174.320" atv="7.972" linkedscene="scene_f2_feed_0202" linkedscene_lookat="65,0" />
+
+    </scene>
+
+    <!--<scene name="scene_F2_018" title="F2_018" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_018,-30.66,F2);"-->
+           <!--thumburl="panos/F2_018.tiles/thumb.jpg" lat="" lng="" heading="">-->
+
+        <!--<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"-->
+              <!--limitview="auto"/>-->
+
+        <!--<preview url="panos/F2_018.tiles/preview.jpg"/>-->
+
+        <!--<image>-->
+            <!--<cube url="panos/F2_018.tiles/pano_%s.jpg"/>-->
+        <!--</image>-->
+
+    <!--</scene>-->
+
+    <scene name="scene_F2_019" title="F2_019" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_019,113.88,F2);"
+           thumburl="panos/F2_019.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_019.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_019.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="18.782" atv="8.095" linkedscene="scene_f2_017" linkedscene_lookat="352,0" />
+
+    </scene>
+
+    <scene name="scene_F2_020" title="F2_020" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_020,-335.24,F2);" thumburl="panos/F2_020.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_020.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_020.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_right" ath="-12.968" atv="-2.990" linkedscene="scene_f2_feed_0202" linkedscene_lookat="244,0" />
+
+    </scene>
+
+    <scene name="scene_F2_021" title="F2_021" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_021,37.06,F2);"
+           thumburl="panos/F2_021.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_021.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_021.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="161.403" atv="4.475" linkedscene="scene_f2_014" linkedscene_lookat="151,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-108.825" atv="14.032" linkedscene="scene_f2_022" linkedscene_lookat="324,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-109.047" atv="9.234" linkedscene="scene_f2_wc_w2" linkedscene_lookat="199,0" />
+
+    </scene>
+
+    <scene name="scene_F2_022" title="F2_022" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_022,293.87,F2);"
+           thumburl="panos/F2_022.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_022.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_022.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="135.272" atv="13.280" linkedscene="scene_f2_021" linkedscene_lookat="74,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_right" ath="149.450" atv="38.494" linkedscene="scene_f2_023" linkedscene_lookat="160,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-37.801" atv="20.439" linkedscene="scene_f2_wc_w2" linkedscene_lookat="199,0" />
+		
+
+    </scene>
+
+    <scene name="scene_F2_023" title="F2_023" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_023,10.78,F2);"
+           thumburl="panos/F2_023.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_023.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_023.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_left" ath="-23.879" atv="4.647" linkedscene="scene_f2_022" linkedscene_lookat="324,0" />
+
+    </scene>
+
+    <scene name="scene_F2_024" title="F2_024" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_024,-49.40,F2);"
+           thumburl="panos/F2_024.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_024.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_024.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-98.802" atv="6.394" linkedscene="scene_f2_013" linkedscene_lookat="180,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-106.878" atv="-0.198" linkedscene="scene_f3_025" linkedscene_lookat="246,0" />
+
+    </scene>
+
+    <scene name="scene_F2_feed_0101" title="F2_feed_0101" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_feed_0101,254.76,F2);" thumburl="panos/F2_feed_0101.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_feed_0101.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_feed_0101.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="131.372" atv="32.918" linkedscene="scene_f2_feed_0102" linkedscene_lookat="329,0" />
+
+    </scene>
+
+    <scene name="scene_F2_feed_0102" title="F2_feed_0102" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_feed_0102,30.53,F2);" thumburl="panos/F2_feed_0102.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_feed_0102.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_feed_0102.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="51.415" atv="23.711" linkedscene="scene_f2_016" linkedscene_lookat="146,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="156.671" atv="36.121" linkedscene="scene_f2_feed_0101" linkedscene_lookat="302,0" />
+
+    </scene>
+
+    <scene name="scene_F2_feed_0201" title="F2_feed_0201" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_feed_0201,-57.52,F2);" thumburl="panos/F2_feed_0201.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_feed_0201.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_feed_0201.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-15.751" atv="25.496" linkedscene="scene_f2_feed_0202" linkedscene_lookat="135,0" />
+
+    </scene>
+
+    <scene name="scene_F2_feed_0202" title="F2_feed_0202" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_feed_0202,129.87,F2);" thumburl="panos/F2_feed_0202.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_feed_0202.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_feed_0202.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-121.283" atv="9.245" linkedscene="scene_f2_017" linkedscene_lookat="355,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-39.378" atv="32.652" linkedscene="scene_f2_feed_0201" linkedscene_lookat="176,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle_left" ath="148.944" atv="-1.455" linkedscene="scene_f2_020" linkedscene_lookat="180,0" />
+
+    </scene>
+
+    <scene name="scene_F2_WC_W1" title="F2_WC_W1" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_WC_W1,-20.95,F2);" thumburl="panos/F2_WC_W1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_WC_W1.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_WC_W1.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="41.549" atv="16.329" linkedscene="scene_f2_wc_w2" linkedscene_lookat="287,0" />
+
+    </scene>
+
+    <scene name="scene_F2_WC_W2" title="F2_WC_W2" onstart="googlemap_off(); pgmap_on(F2); pgmapspot(spot_F2_WC_W2,71.73,F2);" thumburl="panos/F2_WC_W2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F2_WC_W2.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F2_WC_W2.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="16.176" atv="17.539" linkedscene="scene_f2_022" linkedscene_lookat="138,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="16.337" atv="7.684" linkedscene="scene_f2_021" linkedscene_lookat="70,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="104.131" atv="17.263" linkedscene="scene_f2_wc_w1" linkedscene_lookat="219,0" />
+		
+
+    </scene>
+
+    <scene name="scene_F3_025" title="F3_025" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_025,-21.70,F3);"
+           thumburl="panos/F3_025.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F3_025.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F3_025.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="67.246" atv="4.800" linkedscene="scene_f2_024" linkedscene_lookat="68,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-32.424" atv="4.005" linkedscene="scene_f3_026" linkedscene_lookat="215,0" />
+
+    </scene>
+
+    <scene name="scene_F3_026" title="F3_026" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_026,61.65,F3);"
+           thumburl="panos/F3_026.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F3_026.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F3_026.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="38.289" atv="2.959" linkedscene="scene_f3_025" linkedscene_lookat="153,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-51.676" atv="4.523" linkedscene="scene_f3_032" linkedscene_lookat="279,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-138.602" atv="16.261" linkedscene="scene_f3_029" linkedscene_lookat="29,0" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="132.333" atv="8.553" linkedscene="scene_f3_feed_0102" linkedscene_lookat="155,0" />
+		
+
+    </scene>
+
+    <!-- <scene name="scene_F3_027" title="F3_027" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_027,0,F3);" thumburl="panos/F3_027.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+        <preview url="panos/F3_027.tiles/preview.jpg" />
+
+        <image>
+            <cube url="panos/F3_027.tiles/pano_%s.jpg" />
+        </image>
+
+    </scene> -->
+
+    <scene name="scene_F3_028" title="F3_028" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_028,87.24,F3);"
+           thumburl="panos/F3_028.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F3_028.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F3_028.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-91.457" atv="3.543" linkedscene="scene_f3_feed_0102" linkedscene_lookat="342,0" />
+
+    </scene>
+
+    <scene name="scene_F3_029" title="F3_029_elv" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_029,-97.53,F3);"
+           thumburl="panos/F3_029.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F3_029.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F3_029.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="-158.625" atv="12.869" linkedscene="scene_f3_026" linkedscene_lookat="40,0" />
+		<hotspot name="spot2" style="skin_hotspotstyle_elv" ath="123.395" atv="-11.908" linkedscene="scene_f2_015" linkedscene_lookat="193,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_elv" ath="123.482" atv="-6.707" linkedscene="scene_f1_010" linkedscene_lookat="306,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle_elv" ath="123.246" atv="-1.538" linkedscene="scene_b1_041" linkedscene_lookat="104,0"/>
+
+    </scene>
+
+    <scene name="scene_F3_030" title="F3_030" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_030,144.65,F3);"
+           thumburl="panos/F3_030.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F3_030.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F3_030.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_left" ath="-78.437" atv="6.139" linkedscene="scene_f3_feed_0102" linkedscene_lookat="342,0" />
+
+    </scene>
+
+    <scene name="scene_F3_031" title="F3_031" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_031,155.05,F3);"
+           thumburl="panos/F3_031.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F3_031.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F3_031.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_right" ath="-69.622" atv="12.577" linkedscene="scene_f3_032" linkedscene_lookat="99,0" />
+
+    </scene>
+
+    <scene name="scene_F3_032" title="F3_032" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_032,98.24,F3);"
+           thumburl="panos/F3_032.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F3_032.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F3_032.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="95.821" atv="5.357" linkedscene="scene_f3_026" linkedscene_lookat="128,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_left" ath="-103.271" atv="8.996" linkedscene="scene_f3_031" linkedscene_lookat="114,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-176.270" atv="15.143" linkedscene="scene_f3_034" linkedscene_lookat="8,0" />
+
+    </scene>
+
+    <scene name="scene_F3_033" title="F3_033" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_033,81.07,F3);"
+           thumburl="panos/F3_033.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F3_033.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F3_033.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_left" ath="-81.557" atv="6.944" linkedscene="scene_f3_034" linkedscene_lookat="8,0" />
+
+    </scene>
+
+    <scene name="scene_F3_034" title="F3_034" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_034,281.71,F3);"
+           thumburl="panos/F3_034.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F3_034.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F3_034.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-175.906" atv="15.555" linkedscene="scene_f3_032" linkedscene_lookat="5,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_right" ath="-155.453" atv="41.391" linkedscene="scene_f3_033" linkedscene_lookat="97,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="6.269" atv="19.998" linkedscene="scene_f3_wc_w2" linkedscene_lookat="195,0" />
+
+    </scene>
+
+    <scene name="scene_F3_feed_0101" title="F3_feed_0101" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_feed_0101,-89.13,F3);" thumburl="panos/F3_feed_0101.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F3_feed_0101.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F3_feed_0101.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="172.243" atv="16.498" linkedscene="scene_f3_feed_0102" linkedscene_lookat="64,0" />
+
+    </scene>
+
+    <scene name="scene_F3_feed_0102" title="F3_feed_0102" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_feed_0102,27.66,F3);" thumburl="panos/F3_feed_0102.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F3_feed_0102.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F3_feed_0102.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-26.508" atv="8.161" linkedscene="scene_f3_026" linkedscene_lookat="314,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-121.022" atv="17.485" linkedscene="scene_f3_feed_0101" linkedscene_lookat="5,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="165.619" atv="5.803" linkedscene="scene_f3_028" linkedscene_lookat="88,0" />
+		<hotspot name="spot5" style="skin_hotspotstyle_right" ath="169.956" atv="8.175" linkedscene="scene_f3_030" linkedscene_lookat="114,0" />
+
+    </scene>
+
+    <scene name="scene_F3_WC_W1" title="F3_WC_W1" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_WC_W1,-3.93,F3);" thumburl="panos/F3_WC_W1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F3_WC_W1.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F3_WC_W1.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="20.746" atv="16.830" linkedscene="scene_f3_wc_w2" linkedscene_lookat="303,0,140" />
+		
+
+    </scene>
+
+    <scene name="scene_F3_WC_W2" title="F3_WC_W2" onstart="googlemap_off(); pgmap_on(F3); pgmapspot(spot_F3_WC_W2,89.75,F3);" thumburl="panos/F3_WC_W2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/F3_WC_W2.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/F3_WC_W2.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="11.698" atv="19.950" linkedscene="scene_f3_034" linkedscene_lookat="194,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="99.083" atv="18.346" linkedscene="scene_f3_wc_w1" linkedscene_lookat="205,0" />
+		
+
+    </scene>
+
+    <scene name="scene_B1_035" title="B1_035" onstart="googlemap_off(); pgmap_on(B1); pgmapspot(spot_B1_035,103.94,B1);"
+           thumburl="panos/B1_035.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B1_035.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B1_035.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="103.181" atv="-1.967" linkedscene="scene_f1_011" linkedscene_lookat="76,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="113.915" atv="8.756" linkedscene="scene_b1_036" linkedscene_lookat="32,0"/>
+
+    </scene>
+
+    <scene name="scene_B1_036" title="B1_036" onstart="googlemap_off(); pgmap_on(B1); pgmapspot(spot_B1_036,176.66,B1);"
+           thumburl="panos/B1_036.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B1_036.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B1_036.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-139.336" atv="-1.898" linkedscene="scene_b1_035" linkedscene_lookat="272,0,140"/>
+		<hotspot name="spot3" style="skin_hotspotstyle_right" ath="-47.532" atv="-1.324" linkedscene="scene_b1_037" linkedscene_lookat="140,0"/>
+
+    </scene>
+
+    <scene name="scene_B1_037" title="B1_037" onstart="googlemap_off(); pgmap_on(B1); pgmapspot(spot_B1_037,63.40,B1);"
+           thumburl="panos/B1_037.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B1_037.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B1_037.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_left" ath="-64.303" atv="8.681" linkedscene="scene_b1_036" linkedscene_lookat="129,0"/>
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-127.324" atv="6.832" linkedscene="scene_b1_038" linkedscene_lookat="238,0"/>
+
+    </scene>
+
+    <scene name="scene_B1_038" title="B1_038" onstart="googlemap_off(); pgmap_on(B1); pgmapspot(spot_B1_038,41.34,B1);"
+           thumburl="panos/B1_038.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B1_038.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B1_038.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="54.842" atv="6.451" linkedscene="scene_b1_037" linkedscene_lookat="27,0"/>
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="142.718" atv="8.453" linkedscene="scene_b1_039" linkedscene_lookat="298,0"/>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-110.976" atv="6.103" linkedscene="scene_b1_040" linkedscene_lookat="237,0"/>
+
+    </scene>
+
+    <scene name="scene_B1_039" title="B1_039" onstart="googlemap_off(); pgmap_on(B1); pgmapspot(spot_B1_039,-123.14,B1);" thumburl="panos/B1_039.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B1_039.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B1_039.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="117.458" atv="8.491" linkedscene="scene_b1_038" linkedscene_lookat="326,0"/>
+
+    </scene>
+
+    <scene name="scene_B1_040" title="B1_040" onstart="googlemap_off(); pgmap_on(B1); pgmapspot(spot_B1_040,35.21,B1);"
+           thumburl="panos/B1_040.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B1_040.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B1_040.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="52.153" atv="9.344" linkedscene="scene_b1_038" linkedscene_lookat="62,0"/>
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-122.683" atv="15.344" linkedscene="scene_b1_041" linkedscene_lookat="20,0"/>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-36.808" atv="4.870" linkedscene="scene_b1_042" linkedscene_lookat="327,0"/>
+		
+
+    </scene>
+
+    <scene name="scene_B1_041" title="B1_041_elv" onstart="googlemap_off(); pgmap_on(B1); pgmapspot(spot_B1_041,-104.73,B1);" thumburl="panos/B1_041.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B1_041.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B1_041.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-166.974" atv="13.359" linkedscene="scene_b1_040" linkedscene_lookat="51,0"/>
+		<hotspot name="spot3" style="skin_hotspotstyle_elv" ath="115.719" atv="-16.305" linkedscene="scene_f3_029" linkedscene_lookat="118,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle_elv" ath="115.755" atv="-10.854" linkedscene="scene_f2_015" linkedscene_lookat="193,0" />
+		<hotspot name="spot5" style="skin_hotspotstyle_elv" ath="115.814" atv="-5.417" linkedscene="scene_f1_010" linkedscene_lookat="306,0" />
+
+    </scene>
+
+    <scene name="scene_B1_042" title="B1_042" onstart="googlemap_off(); pgmap_on(B1); pgmapspot(spot_B1_042,52.17,B1);"
+           thumburl="panos/B1_042.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B1_042.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B1_042.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="146.354" atv="5.225" linkedscene="scene_b1_040" linkedscene_lookat="147,0"/>
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-124.931" atv="16.132" linkedscene="scene_b1_043" linkedscene_lookat="317,0"/>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-124.968" atv="10.150" linkedscene="scene_b1_wc_w2" linkedscene_lookat="205,0" />
+
+    </scene>
+
+    <scene name="scene_B1_043" title="B1_043" onstart="googlemap_off(); pgmap_on(B1); pgmapspot(spot_B1_043,-23.59,B1);"
+           thumburl="panos/B1_043.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B1_043.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B1_043.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="135.702" atv="14.005" linkedscene="scene_b1_042" linkedscene_lookat="57,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_right" ath="154.202" atv="41.001" linkedscene="scene_b1_044" linkedscene_lookat="157,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-47.435" atv="20.102" linkedscene="scene_b1_wc_w2" linkedscene_lookat="205,0" />
+
+    </scene>
+
+    <scene name="scene_B1_044" title="B1_044" onstart="googlemap_off(); pgmap_on(B1); pgmapspot(spot_B1_044,37.40,B1);"
+           thumburl="panos/B1_044.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B1_044.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B1_044.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_left" ath="-27.985" atv="4.684" linkedscene="scene_b1_043" linkedscene_lookat="319,0" />
+
+    </scene>
+
+    <scene name="scene_B1_WC_W1" title="B1_WC_W1" onstart="googlemap_off(); pgmap_on(B1); pgmapspot(spot_B1_WC_W1,-6.35,B1);" thumburl="panos/B1_WC_W1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B1_WC_W1.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B1_WC_W1.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="34.306" atv="16.455" linkedscene="scene_b1_wc_w2" linkedscene_lookat="318,0" />
+
+    </scene>
+
+    <scene name="scene_B1_WC_W2" title="B1_WC_W2" onstart="googlemap_off(); pgmap_on(B1); pgmapspot(spot_B1_WC_W2,78.23,B1);" thumburl="panos/B1_WC_W2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B1_WC_W2.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B1_WC_W2.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="108.235" atv="18.944" linkedscene="scene_b1_wc_w1" linkedscene_lookat="214,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="20.251" atv="20.025" linkedscene="scene_b1_043" linkedscene_lookat="139,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="20.111" atv="8.228" linkedscene="scene_b1_042" linkedscene_lookat="57,0" />
+
+    </scene>
+
+    <scene name="scene_B3_01" title="B3_01" onstart="pgmap_off(); googlemap_off();" thumburl="panos/B3_01.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B3_01.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B3_01.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle_left" ath="-100.699" atv="3.866" linkedscene="scene_b3_02_wc_m" linkedscene_lookat="350,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle_elv" ath="-141.396" atv="-0.544" linkedscene="scene_im_out_001" linkedscene_lookat="276,0"/>
+
+    </scene>
+
+    <scene name="scene_B3_02_WC_M" title="B3_02_WC_M" onstart="pgmap_off(); googlemap_off();" thumburl="panos/B3_02_WC_M.tiles/thumb.jpg" lat=""
+           lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/B3_02_WC_M.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/B3_02_WC_M.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_left" ath="-130.541" atv="7.606" linkedscene="scene_b3_01" linkedscene_lookat="92,0"/>
+
+    </scene>
+
+    <scene name="scene_IM_out_001" title="IM_out_001" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5507784,127.0773017); plugin[googlemap].activatespot(scene_IM_out_001);" thumburl="panos/IM_out_001.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/IM_out_001.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/IM_out_001.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="25.997" atv="4.093" linkedscene="scene_052" linkedscene_lookat="185,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-174.345" atv="4.802" linkedscene="scene_im_out_002" linkedscene_lookat="153,0"/>
+        <hotspot name="spot4" style="skin_hotspotstyle_elv" ath="-72.688" atv="-2.386" linkedscene="scene_b3_01" linkedscene_lookat="218,0,86"/>
+
+    </scene>
+
+    <scene name="scene_IM_out_002" title="IM_out_002" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5508805,127.0774359); plugin[googlemap].activatespot(scene_IM_out_002);" thumburl="panos/IM_out_002.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/IM_out_002.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/IM_out_002.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-25.009" atv="4.473" linkedscene="scene_im_out_001" linkedscene_lookat="11,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-119.671" atv="-0.833" linkedscene="scene_im_out_003" linkedscene_lookat="92,0"/>
+
+    </scene>
+
+    <scene name="scene_IM_out_003" title="IM_out_003" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5508933,127.0775861); plugin[googlemap].activatespot(scene_IM_out_003);" thumburl="panos/IM_out_003.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/IM_out_003.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/IM_out_003.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-102.930" atv="2.947" linkedscene="scene_im_out_002" linkedscene_lookat="53,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="92.385" atv="2.902" linkedscene="scene_im_out_004" linkedscene_lookat="222,0"/>
+
+    </scene>
+
+    <scene name="scene_IM_out_004" title="IM_out_004" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5508635,127.0777041); plugin[googlemap].activatespot(scene_IM_out_004);" thumburl="panos/IM_out_004.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/IM_out_004.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/IM_out_004.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="48.588" atv="3.576" linkedscene="scene_im_out_003" linkedscene_lookat="272,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-143.357" atv="1.499" linkedscene="scene_im_out_005" linkedscene_lookat="220,0"/>
+
+    </scene>
+
+    <scene name="scene_IM_out_005" title="IM_out_005" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5507954,127.0778489); plugin[googlemap].activatespot(scene_IM_out_005);" thumburl="panos/IM_out_005.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="8.0" fovmin="0" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/IM_out_005.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/IM_out_005.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="22.755" atv="4.672" linkedscene="scene_im_out_004" linkedscene_lookat="42,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-139.640" atv="-3.567" linkedscene="scene_im_out_006" linkedscene_lookat="166,0"/>
+
+    </scene>
+
+    <scene name="scene_IM_out_006" title="IM_out_006" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5506849,127.0778865); plugin[googlemap].activatespot(scene_IM_out_006);" thumburl="panos/IM_out_006.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/IM_out_006.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/IM_out_006.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-18.274" atv="9.275" linkedscene="scene_im_out_005" linkedscene_lookat="78,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle_right" ath="156.876" atv="-1.231" linkedscene="scene_im_out_007" linkedscene_lookat="163,0"/>
+
+    </scene>
+
+    <scene name="scene_IM_out_007" title="IM_out_007" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5505403,127.0778328); plugin[googlemap].activatespot(scene_IM_out_007);" thumburl="panos/IM_out_007.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/IM_out_007.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/IM_out_007.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-36.914" atv="1.912" linkedscene="scene_im_out_006" linkedscene_lookat="5,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle_right" ath="145.984" atv="-4.403" linkedscene="scene_im_out_008" linkedscene_lookat="149,0"/>
+
+    </scene>
+
+    <scene name="scene_IM_out_008" title="IM_out_008" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5503446,127.0777363); plugin[googlemap].activatespot(scene_IM_out_008);" thumburl="panos/IM_out_008.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/IM_out_008.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/IM_out_008.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-34.022" atv="-5.005" linkedscene="scene_im_out_007" linkedscene_lookat="343,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-151.542" atv="6.771" linkedscene="scene_im_out_009" linkedscene_lookat="254,0"/>
+
+    </scene>
+
+    <scene name="scene_IM_out_009" title="IM_out_009" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5503106,127.0774627); plugin[googlemap].activatespot(scene_IM_out_009);" thumburl="panos/IM_out_009.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/IM_out_009.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/IM_out_009.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="70.346" atv="-2.498" linkedscene="scene_im_out_008" linkedscene_lookat="22,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-117.682" atv="2.308" linkedscene="scene_im_out_010" linkedscene_lookat="167,0"/>
+
+    </scene>
+
+    <scene name="scene_IM_out_010" title="IM_out_010" onstart="pgmap_off(); googlemap_on();  googlemap_spot(37.5504892,127.0772052); plugin[googlemap].activatespot(scene_IM_out_010);" thumburl="panos/IM_out_010.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/IM_out_010.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/IM_out_010.tiles/pano_%s.jpg"/>
+        </image>
+        <hotspot name="spot2" style="skin_hotspotstyle" ath="-19.153" atv="-0.207" linkedscene="scene_im_out_009" linkedscene_lookat="65,0"/>
+        <hotspot name="spot3" style="skin_hotspotstyle" ath="-92.884" atv="1.002" linkedscene="scene_052" linkedscene_lookat="276,0"/>
+
+    </scene>
+
+
+    <scene name="scene_staChild_B1_001" title="staChild_B1_001" onstart="googlemap_off(); pgmap_on(STB1); pgmapspot(spot_staChild_B1_001,225.20,STB1);" thumburl="panos/staChild_B1_001.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B1_001.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B1_001.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-143.704" atv="4.381" linkedscene="scene_stachild_b1_004" linkedscene_lookat="251,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-54.912" atv="8.101" linkedscene="scene_stachild_b1_003" linkedscene_lookat="161,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="123.588" atv="17.479" linkedscene="scene_stachild_b1_002" linkedscene_lookat="67,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B1_002" title="staChild_B1_002_elv_to온수부평" onstart="googlemap_off(); pgmap_on(STB1); pgmapspot(spot_staChild_B1_002,-243.56,STB1);" thumburl="panos/staChild_B1_002.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B1_002.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B1_002.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="59.637" atv="14.905" linkedscene="scene_stachild_b1_001" linkedscene_lookat="308,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_elv" ath="-119.622" atv="0.048" linkedscene="scene_stachild_b2_004" linkedscene_lookat="217,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle_elv" ath="-119.882" atv="7.470" linkedscene="scene_stachild_b3_002" linkedscene_lookat="82,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B1_003" title="staChild_B1_003_elv_to도봉산장암" onstart="googlemap_off(); pgmap_on(STB1); pgmapspot(spot_staChild_B1_003,17.09,STB1);" thumburl="panos/staChild_B1_003.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B1_003.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B1_003.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-25.730" atv="9.633" linkedscene="scene_stachild_b1_001" linkedscene_lookat="127,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_elv" ath="157.805" atv="0.532" linkedscene="scene_stachild_b2_005" linkedscene_lookat="46,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle_elv" ath="157.786" atv="7.559" linkedscene="scene_stachild_b3_001" linkedscene_lookat="194,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B1_004" title="staChild_B1_004" onstart="googlemap_off(); pgmap_on(STB1); pgmapspot(spot_staChild_B1_004,201.95,STB1);" thumburl="panos/staChild_B1_004.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B1_004.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B1_004.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-78.940" atv="8.267" linkedscene="scene_stachild_b1_005" linkedscene_lookat="263,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="65.802" atv="3.910" linkedscene="scene_stachild_b1_001" linkedscene_lookat="36,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B1_005" title="staChild_B1_005" onstart="googlemap_off(); pgmap_on(STB1); pgmapspot(spot_staChild_B1_005,223.37,STB1);" thumburl="panos/staChild_B1_005.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B1_005.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B1_005.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-128.434" atv="7.622" linkedscene="scene_stachild_b1_006" linkedscene_lookat="230,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="80.138" atv="2.251" linkedscene="scene_stachild_b1_004" linkedscene_lookat="115,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B1_006" title="staChild_B1_006" onstart="googlemap_off(); pgmap_on(STB1); pgmapspot(spot_staChild_B1_006,-139.36,STB1);" thumburl="panos/staChild_B1_006.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B1_006.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B1_006.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="50.491" atv="8.156" linkedscene="scene_stachild_b1_005" linkedscene_lookat="53,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-133.469" atv="7.432" linkedscene="scene_stachild_b1_007" linkedscene_lookat="248,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B1_007" title="staChild_B1_007" onstart="googlemap_off(); pgmap_on(STB1); pgmapspot(spot_staChild_B1_007,-154.26,STB1);" thumburl="panos/staChild_B1_007.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B1_007.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B1_007.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-13.766" atv="5.347" linkedscene="scene_stachild_b1_008" linkedscene_lookat="258,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="64.175" atv="5.297" linkedscene="scene_stachild_b1_006" linkedscene_lookat="45,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B1_008" title="staChild_B1_008_elv" onstart="googlemap_off(); pgmap_on(STB1); pgmapspot(spot_staChild_B1_008,-83.92,STB1);" thumburl="panos/staChild_B1_008.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B1_008.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B1_008.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_elv" ath="-104.294" atv="0.000" linkedscene="scene_001" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="79.787" atv="5.145" linkedscene="scene_stachild_b1_007" linkedscene_lookat="164,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B2_001" title="staChild_B2_001" onstart="googlemap_off(); pgmap_on(STB2); pgmapspot(spot_staChild_B2_001,-41.43,STB2);" thumburl="panos/staChild_B2_001.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B2_001.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B2_001.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="36.596" atv="25.753" linkedscene="scene_stachild_b2_002" linkedscene_lookat="42,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B2_002" title="staChild_B2_002" onstart="googlemap_off(); pgmap_on(STB2); pgmapspot(spot_staChild_B2_002,-43.16,STB2);" thumburl="panos/staChild_B2_002.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B2_002.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B2_002.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-135.925" atv="25.842" linkedscene="scene_stachild_b2_001" linkedscene_lookat="216,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_left" ath="116.866" atv="3.105" linkedscene="scene_stachild_b2_003" linkedscene_lookat="315,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B2_003" title="staChild_B2_003" onstart="googlemap_off(); pgmap_on(STB2); pgmapspot(spot_staChild_B2_003,-44.55,STB2);" thumburl="panos/staChild_B2_003.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B2_003.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B2_003.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-48.299" atv="11.819" linkedscene="scene_stachild_b2_004" linkedscene_lookat="304,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_right" ath="139.867" atv="-2.038" linkedscene="scene_stachild_b2_002" linkedscene_lookat="314,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B2_004" title="staChild_B2_004_elv_to온수부평" onstart="googlemap_off(); pgmap_on(STB2); pgmapspot(spot_staChild_B2_004,-44.02,STB2);" thumburl="panos/staChild_B2_004.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B2_004.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B2_004.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_elv" ath="36.777" atv="0.041" linkedscene="scene_stachild_b1_002" linkedscene_lookat="60,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_elv" ath="36.777" atv="5.593" linkedscene="scene_stachild_b3_002" linkedscene_lookat="82,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-141.989" atv="6.492" linkedscene="scene_stachild_b2_005" linkedscene_lookat="226,0" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="128.330" atv="8.846" linkedscene="scene_stachild_b2_003" linkedscene_lookat="131,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B2_005" title="staChild_B2_005_elv_to도봉산장암" onstart="googlemap_off(); pgmap_on(STB2); pgmapspot(spot_staChild_B2_005,-59.02,STB2);" thumburl="panos/staChild_B2_005.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B2_005.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B2_005.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_elv" ath="-135.216" atv="-3.119" linkedscene="scene_stachild_b1_003" linkedscene_lookat="335,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_elv" ath="-135.204" atv="3.529" linkedscene="scene_stachild_b3_001" linkedscene_lookat="194,0" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="43.662" atv="6.811" linkedscene="scene_stachild_b2_004" linkedscene_lookat="38,0" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-46.455" atv="7.384" linkedscene="scene_stachild_b2_006" linkedscene_lookat="327,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B2_006" title="staChild_B2_006" onstart="googlemap_off(); pgmap_on(STB2); pgmapspot(spot_staChild_B2_006,-62.09,STB2);" thumburl="panos/staChild_B2_006.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B2_006.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B2_006.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="140.431" atv="13.266" linkedscene="scene_stachild_b2_005" linkedscene_lookat="46,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-109.738" atv="6.539" linkedscene="scene_stachild_b2_007" linkedscene_lookat="160,0,140" />
+
+    </scene>
+
+    <scene name="scene_staChild_B2_007" title="staChild_B2_007" onstart="googlemap_off(); pgmap_on(STB2); pgmapspot(spot_staChild_B2_007,27.70,STB2);" thumburl="panos/staChild_B2_007.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B2_007.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B2_007.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-26.571" atv="6.104" linkedscene="scene_stachild_b2_006" linkedscene_lookat="78,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-138.849" atv="14.699" linkedscene="scene_stachild_b2_008" linkedscene_lookat="259,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B2_008" title="staChild_B2_008" onstart="googlemap_off(); pgmap_on(STB2); pgmapspot(spot_staChild_B2_008,0.0,STB2);" thumburl="panos/staChild_B2_008.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B2_008.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B2_008.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="73.227" atv="12.901" linkedscene="scene_stachild_b2_007" linkedscene_lookat="15,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B3_001" title="staChild_B3_001_elv_to도봉산장암" onstart="googlemap_off(); pgmap_on(STB3); pgmapspot(spot_staChild_B3_001,165.95,STB3);" thumburl="panos/staChild_B3_001.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B3_001.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B3_001.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_elv" ath="9.889" atv="6.820" linkedscene="scene_stachild_b2_005" linkedscene_lookat="46,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_elv" ath="9.925" atv="0.273" linkedscene="scene_stachild_b2_005" linkedscene_lookat="46,0" />
+
+    </scene>
+
+    <scene name="scene_staChild_B3_002" title="staChild_B3_002_elv_to온수부평" onstart="googlemap_off(); pgmap_on(STB3); pgmapspot(spot_staChild_B3_002,-265.21,STB3);" thumburl="panos/staChild_B3_002.tiles/thumb.jpg" lat="" lng="" heading="">
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="panos/staChild_B3_002.tiles/preview.jpg"/>
+
+        <image>
+            <cube url="panos/staChild_B3_002.tiles/pano_%s.jpg"/>
+        </image>
+		<hotspot name="spot2" style="skin_hotspotstyle_elv" ath="-95.999" atv="-0.266" linkedscene="scene_stachild_b1_002" linkedscene_lookat="60,0" />
+		<hotspot name="spot3" style="skin_hotspotstyle_elv" ath="-96.088" atv="6.198" linkedscene="scene_stachild_b2_004" linkedscene_lookat="217,0" />
+
+    </scene>
+
+</krpano>

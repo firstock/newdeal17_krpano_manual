@@ -1,0 +1,38 @@
+<krpano>
+<!-- document
+- krpano ~ /krpano가 없으면 에러
+
+nadirlogorotation
+	바닥(화면 -90도)가리기에서
+	rotatewithview="true" 일 경우, 화면 돌리는 방향으로 png가 같이 따라 돌도록
+
+check_lookat
+	구글맵 플러그인을 한번만 넣고 각 씬에서는 레이더와 현재씬 표시(녹색점)만 따라오게 하는 방법을 사용한다.
+	이 방법을 사용할떈 구글맵 플러그인에 들어가는 각 스팟의 heading값을 달리 입력해야 하므로 이 값을 알아내기 위해 아래 check_lookat 액션을 사용한다.
+	또한, 각 씬이 시작될때 해당 씬에 해당되는 스팟이 강조되면서 레이더가 생기게 해주는 plugin[googlemap].activatespot 액션(플러그인에 포함)을 사용하고
+	my_active는 해당 씬의 스팟이 미니맵 중앙에 오게 해주는 액션이다.
+ 
+	레이더가 알맞은 방향을 보고 Z키, 씬이 알맞은 방향을 보고 X키를 누르면 해당 spot의 heading값에 들어가는 상수가 로그창에 출력된다.
+	단, 이 기능을 사용하기 전에 heading값이 0일때만 적용된다.
+	만약에 초기 heading값이 0이 아닐경우 이미 입력된 heading값에 출력된 값을 더해주면 된다.
+	이 값을 해당 스팟의 heading에 적어주면 된다.
+
+	action name="startup" 안에 showlog(); 넣기
+ -->
+
+<events	name="nadirlogorotation" keep="true"
+	onviewchange= "if(hotspot[nadir_logo].rotatewithview, set(hotspot[nadir_logo].rotate, get(view.hlookat)) );"
+/>
+
+<!--<check_lookat  Z="" X="" my_heading="" />
+<events onkeydown= "if(keycode == '90', copy(Z,view.hlookat); trace('현재 hlookat = ',Z); ); if(keycode == '88', copy(X,view.hlookat); trace('현재 hlookat = ',X); sub(my_heading,X,Z); roundval(my_heading); trace('입력해야 할 heading 값 = ',my_heading); ); "
+/>-->
+	<!--c 눌렀을 때 현재 보는 hlookat값 콘솔에 띄우기-->
+	<!-- 왼쪽으로 20바퀴 이상 돌리면 음수값이 나오기 시작 -->
+	<events onkeydown="
+		if('67'== keycode,
+			copy(c,view.hlookat); roundval(c); add(c,7200); mod(c,c,360); trace('h:                             ',c,','); );
+		if('32'== keycode,
+			roundval(view.hlookat); add(view.hlookat,180); mod(view.hlookat,360); trace('                             ',view.hlookat,',');
+	); "/>
+</krpano>
